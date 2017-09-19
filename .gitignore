@@ -1,0 +1,4 @@
+models/api/migrations
+*.pyc
+
+.DS_Store
