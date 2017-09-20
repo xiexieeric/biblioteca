@@ -1,9 +1,10 @@
 models:
     image: tp33/django
+    container_name: models
     external_links:
         - mysql:db
     volumes:
         - .:/app
     ports:
         - "8001:8000"
-    command: bash -c "mod_wsgi-express start-server --working-directory /app/biblioteca --reload-on-changes /app/biblioteca/biblioteca/wsgi.py"
+    command: bash -c "mod_wsgi-express start-server --working-directory /app/models --reload-on-changes /app/models/models/wsgi.py"
