@@ -3,7 +3,13 @@ from django.http import HttpResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
 
+
 from api.models import Author, Book, Review
+
+from json import loads, dumps
+from django.core import serializers
+
+
 
 # Create your views here.
 
@@ -13,11 +19,19 @@ def index(request):
 
 @csrf_exempt
 def author(request, author_id):
+	"""
+	GET - return the row in the corresponding database table in JSON.
+	POST - be able to update a row in the table given a set of key-value form encoded pairs (PREFERRED, NOT JSON)
+	"""
 	if request.method == 'GET':
-		# Need to get the csrf token and add as a header in postman POST request
+		# Need to GET the csrf token and add as a header in postman POST request
 		# for key X-CSRFToken for post requests to work
 		#return HttpResponse(get_token(request))
-		return HttpResponse('GET ' + author_id)
+		try:
+			author = Author.objects.get(pk=author_id)
+			return HttpResponse(serializers.serialize('json', [author]))
+		except:
+			return HttpResponse('The primary key for author does not exist or something went wrong in serialization.')
 	if request.method == 'POST':
 		return HttpResponse('POST ' +  author_id)
 
