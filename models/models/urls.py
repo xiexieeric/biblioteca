@@ -20,3 +20,4 @@ urlpatterns = [
 	url(r'^api/v1/', include('api.urls', namespace="api")),
     url(r'^admin/', admin.site.urls)
 ]
+ 
