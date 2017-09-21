@@ -23,7 +23,7 @@ def serialize(obj):
 	"""
 	serialized = serializers.serialize('json', [obj])
 	data = loads(serialized)
-	return dumps(data[0]) # Cuts off the first and last char '[' and ']' to match assignment format.
+	return data[0] # Cuts off the first and last char '[' and ']' to match assignment format.
 
 
 @csrf_exempt
@@ -32,16 +32,21 @@ def author(request, author_id):
 	GET - return the row in the corresponding database table in JSON.
 	POST - be able to update a row in the table given a set of key-value form encoded pairs (PREFERRED, NOT JSON)
 	"""
+	res = {}
 	if request.method == 'GET':
 		# Need to GET the csrf token and add as a header in postman POST request
 		# for key X-CSRFToken for post requests to work
 		#return HttpResponse(get_token(request))
-		author = Author.objects.get(pk=author_id)
 		try:
 			author = Author.objects.get(pk=author_id)
-			return HttpResponse(serialize(author))
+			res["success"] = True
+			res["msg"] = "Author found"
+			res["result"] = serialize(author)
+			return HttpResponse(dumps(res))
 		except:
-			return HttpResponse('{\"status\": \"error, primary key does not exist or serialization failed\"}')
+			res["success"] = False
+			res["msg"] = "Author does not exist"
+			return HttpResponse(dumps(res))
 
 	if request.method == 'POST':
 		try:
@@ -55,9 +60,14 @@ def author(request, author_id):
 				elif key == 'age':
 					author.age = value
 			author.save()
-			return HttpResponse('{\"status\": \"ok, author updated\"}')
+			res["success"] = True
+			res["msg"] = "Author updated"
+			res["result"] = serialize(author)
+			return HttpResponse(dumps(res))
 		except:
-			return HttpResponse('{\"status\": \"error, author does not exist\"}')
+			res["success"] = False
+			res["msg"] = "Author does not exist"
+			return HttpResponse(dumps(res))
 
 @csrf_exempt
 def create_author(request):
@@ -66,6 +76,7 @@ def create_author(request):
 	This currently accepts the preferred method of key-value form data as stated in the 
 	Project 2 description.
 	"""
+	res = {}
 	if request.method == 'POST':
 
 		# Try to parse values and save to database
@@ -79,11 +90,16 @@ def create_author(request):
 				age = age
 				)
 			author.save()
-			return HttpResponse('{\"status\": \"ok, author saved successfully\"}')
+			res["success"] = True
+			res["msg"] = "Author created"
+			res["result"] = serialize(author)
+			return HttpResponse(dumps(res))
 
 		# Print the exception if we run into one.
 		except Exception as e:
-			return HttpResponse('{\"status\": \"error - ' + e + '\"}')
+			res["success"] = False
+			res["msg"] = e
+			return HttpResponse(dumps(res))
 
 	# We only accept POST requests to this endpoint.
 	return HttpResponse('{\"status\": \"error, only POST is allowed\"}')
