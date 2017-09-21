@@ -17,6 +17,14 @@ def index(request):
 	return HttpResponse('Welcome to the index page for API v1')
 
 
+def serialize(obj):
+	"""
+	Easy json serialization for a single object.
+	"""
+	serialized = serializers.serialize('json', [obj])
+	return serialized[1:-1] # Cuts off the first and last char '[' and ']' to match assignment format.
+
+
 @csrf_exempt
 def author(request, author_id):
 	"""
@@ -29,7 +37,7 @@ def author(request, author_id):
 		#return HttpResponse(get_token(request))
 		try:
 			author = Author.objects.get(pk=author_id)
-			return HttpResponse(serializers.serialize('json', [author]))
+			return HttpResponse(serialize(author))
 		except:
 			return HttpResponse('The primary key for author does not exist or something went wrong in serialization.')
 	if request.method == 'POST':
