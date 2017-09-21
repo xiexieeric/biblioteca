@@ -118,17 +118,34 @@ def book(request, book_id):
 	GET - return the row in the corresponding database table in JSON.
 	POST - be able to update a row in the table given a set of key-value form encoded pairs (PREFERRED, NOT JSON)
 	"""
+	res = {}
 	if request.method == 'GET':
 		# Need to GET the csrf token and add as a header in postman POST request
 		# for key X-CSRFToken for post requests to work
 		#return HttpResponse(get_token(request))
 		try:
 			book = Book.objects.get(pk=book_id)
-			return HttpResponse(serialize(book))
+			return generate_response(res, book, "book found")
 		except:
-			return HttpResponse('The primary key for book does not exist or something went wrong in serialization.')
+			return generate_response(res, "book not found")
+
 	if request.method == 'POST':
-		return HttpResponse('POST ' +  book_id)
+		try:
+			book = Book.objects.get(pk=book_id)
+			for key in request.POST:
+				value = request.POST[key]
+				if key == 'title':
+					book.title = value
+				elif key == 'year_published':
+					book.year_published = value
+				elif key == 'rating':
+					book.rating = value
+				elif key == 'author':
+					book.author = value
+			book.save()
+			return generate_response(res, book, "book updated")
+		except:
+			return generate_response(res, "book not found")
 
 
 @csrf_exempt
@@ -165,22 +182,51 @@ def create_book(request):
 
 
 @csrf_exempt
+def delete_book(request, book_id):
+	try:
+		book = Book.objects.get(pk=book_id)
+		book.delete()
+		return HttpResponse('{\"status\": \"ok, book deleted successfully\"}')
+	except:
+		return HttpResponse('{\"status\": \"error, book does not exist\"}')
+
+
+@csrf_exempt
 def review(request, review_id):
 	"""
 	GET - return the row in the corresponding database table in JSON.
 	POST - be able to update a row in the table given a set of key-value form encoded pairs (PREFERRED, NOT JSON)
 	"""
+	res = {}
 	if request.method == 'GET':
 		# Need to GET the csrf token and add as a header in postman POST request
 		# for key X-CSRFToken for post requests to work
 		#return HttpResponse(get_token(request))
 		try:
 			review = Review.objects.get(pk=review_id)
-			return HttpResponse(serialize(book))
+			return generate_response(res, review, "review found")
 		except:
-			return HttpResponse('The primary key for review does not exist or something went wrong in serialization.')
+			return generate_response(res, "review not found")
+
 	if request.method == 'POST':
-		return HttpResponse('POST ' +  review_id)
+		try:
+			review = Review.objects.get(pk=review_id)
+			for key in request.POST:
+				value = request.POST[key]
+				if key == 'reviewer':
+					review.reviewer = value
+				elif key == 'pub_date':
+					review.pub_date = value
+				elif key == 'book':
+					review.book = value
+				elif key == 'rating':
+					review.rating = value
+				elif key == 'content':
+					review.content = value
+			review.save()
+			return generate_response(res, review, "review updated")
+		except:
+			return generate_response(res, "review not found")
 
 
 @csrf_exempt
@@ -215,6 +261,15 @@ def create_review(request):
 	# We only accept POST requests to this endpoint.
 	return HttpResponse("400 - Bad request, make sure to POST")
 
+
+@csrf_exempt
+def delete_review(request, review_id):
+	try:
+		review = Review.objects.get(pk=review_id)
+		review.delete()
+		return HttpResponse('{\"status\": \"ok, review deleted successfully\"}')
+	except:
+		return HttpResponse('{\"status\": \"error, review does not exist\"}')
 
 
 
