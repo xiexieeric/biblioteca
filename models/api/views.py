@@ -22,7 +22,8 @@ def serialize(obj):
 	Easy json serialization for a single object.
 	"""
 	serialized = serializers.serialize('json', [obj])
-	return serialized[1:-1] # Cuts off the first and last char '[' and ']' to match assignment format.
+	data = loads(serialized)
+	return dumps(data[0]) # Cuts off the first and last char '[' and ']' to match assignment format.
 
 
 @csrf_exempt
@@ -35,11 +36,8 @@ def author(request, author_id):
 		# Need to GET the csrf token and add as a header in postman POST request
 		# for key X-CSRFToken for post requests to work
 		#return HttpResponse(get_token(request))
-		try:
-			author = Author.objects.get(pk=author_id)
-			return HttpResponse(serialize(author))
-		except:
-			return HttpResponse('The primary key for author does not exist or something went wrong in serialization.')
+		author = Author.objects.get(pk=author_id)
+		return HttpResponse(serialize(author))
 	if request.method == 'POST':
 		return HttpResponse('POST ' +  author_id)
 
