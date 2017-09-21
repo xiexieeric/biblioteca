@@ -12,19 +12,20 @@ class Author(models.Model):
 
 class Book(models.Model):
 	title = models.CharField(max_length=200)
-	pub_date = models.DateField(auto_now_add=True)
+	pub_date = models.IntegerField()
 	rating = models.FloatField()
 	author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
 	def __str__(self):
-		return "%s" % (self.title)
-
+		return "%s - %s - %s - %s %s" % (self.title, 
+			self.pub_date, self.rating, self.author.first_name, self.author.last_name)
 class Review(models.Model):
-	reviewer = models.ForeignKey(User)
-	pub_date = models.DateTimeField('date published')
+	reviewer = models.CharField(max_length=200)
+	pub_date = models.DateTimeField(auto_now_add=True)
 	book = models.ForeignKey(Book)
-	rating = models.IntegerField(default=0)
+	rating = models.FloatField(default=0)
 	content = models.TextField()
 
 	def __str__(self):
-		return "%s" % (self.reviewer)
+		return "%s - %s - %s - %s - %s" % (self.reviewer, 
+			self.pub_date, self.book.title, self.rating, self.content)
