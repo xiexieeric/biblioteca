@@ -22,8 +22,18 @@ def serialize(obj):
 	Easy json serialization for a single object.
 	"""
 	serialized = serializers.serialize('json', [obj])
-	return serialized[1:-1] # Cuts off the first and last char '[' and ']' to match assignment format.
+	data = loads(serialized)
+	return data[0] # Cuts off the first and last char '[' and ']' to match assignment format.
 
+def generate_response(res, msg, obj=None):
+	if obj is None:
+		res["success"] = False
+		res["msg"] = msg
+	else:
+		res["result"] = serialize(obj)
+		res["success"] = True
+		res["msg"] = msg
+	return HttpResponse(dumps(res))
 
 @csrf_exempt
 def author(request, author_id):
@@ -31,17 +41,32 @@ def author(request, author_id):
 	GET - return the row in the corresponding database table in JSON.
 	POST - be able to update a row in the table given a set of key-value form encoded pairs (PREFERRED, NOT JSON)
 	"""
+	res = {}
 	if request.method == 'GET':
 		# Need to GET the csrf token and add as a header in postman POST request
 		# for key X-CSRFToken for post requests to work
 		#return HttpResponse(get_token(request))
 		try:
 			author = Author.objects.get(pk=author_id)
-			return HttpResponse(serialize(author))
+			return generate_response(res, author, "author found")
 		except:
-			return HttpResponse('The primary key for author does not exist or something went wrong in serialization.')
+			return generate_response(res, "author not found")
+
 	if request.method == 'POST':
-		return HttpResponse('POST ' +  author_id)
+		try:
+			author = Author.objects.get(pk=author_id)
+			for key in request.POST:
+				value = request.POST[key]
+				if key == 'first_name':
+					author.first_name = value
+				elif key == 'last_name':
+					author.last_name = value
+				elif key == 'age':
+					author.age = value
+			author.save()
+			return generate_response(res, author, "author updated")
+		except:
+			return generate_response(res, "author not found")
 
 
 @csrf_exempt
@@ -51,6 +76,7 @@ def create_author(request):
 	This currently accepts the preferred method of key-value form data as stated in the 
 	Project 2 description.
 	"""
+	res = {}
 	if request.method == 'POST':
 
 		# Try to parse values and save to database
@@ -64,14 +90,24 @@ def create_author(request):
 				age = age
 				)
 			author.save()
-			return HttpResponse("Saved successfully.")
+			return generate_response(res, author, "author created")
 
 		# Print the exception if we run into one.
 		except Exception as e:
-			return HttpResponse(e)
+			return generate_response(res, e)
 
 	# We only accept POST requests to this endpoint.
-	return HttpResponse("400 - Bad request, make sure to POST")
+	return generate_response(res, "only POST requests are allowed")
+
+
+@csrf_exempt
+def delete_author(request, author_id):
+	try:
+		author = Author.objects.get(pk=author_id)
+		author.delete()
+		return HttpResponse('{\"status\": \"ok, author deleted successfully\"}')
+	except:
+		return HttpResponse('{\"status\": \"error, author does not exist\"}')
 
 
 @csrf_exempt
