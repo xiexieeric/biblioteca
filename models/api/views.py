@@ -37,9 +37,27 @@ def author(request, author_id):
 		# for key X-CSRFToken for post requests to work
 		#return HttpResponse(get_token(request))
 		author = Author.objects.get(pk=author_id)
-		return HttpResponse(serialize(author))
+		try:
+			author = Author.objects.get(pk=author_id)
+			return HttpResponse(serialize(author))
+		except:
+			return HttpResponse('{\"status\": \"error, primary key does not exist or serialization failed\"}')
+
 	if request.method == 'POST':
-		return HttpResponse('POST ' +  author_id)
+		try:
+			author = Author.objects.get(pk=author_id)
+			for key in request.POST:
+				value = request.POST[key]
+				if key == 'first_name':
+					author.first_name = value
+				elif key == 'last_name':
+					author.last_name = value
+				elif key == 'age':
+					author.age = value
+			author.save()
+			return HttpResponse('{\"status\": \"ok, author updated\"}')
+		except:
+			return HttpResponse('{\"status\": \"error, author does not exist\"}')
 
 @csrf_exempt
 def create_author(request):
@@ -61,14 +79,24 @@ def create_author(request):
 				age = age
 				)
 			author.save()
-			return HttpResponse("Saved successfully.")
+			return HttpResponse('{\"status\": \"ok, author saved successfully\"}')
 
 		# Print the exception if we run into one.
 		except Exception as e:
-			return HttpResponse(e)
+			return HttpResponse('{\"status\": \"error - ' + e + '\"}')
 
 	# We only accept POST requests to this endpoint.
-	return HttpResponse("400 - Bad request, make sure to POST")
+	return HttpResponse('{\"status\": \"error, only POST is allowed\"}')
+
+
+@csrf_exempt
+def delete_author(request, author_id):
+	try:
+		author = Author.objects.get(pk=author_id)
+		author.delete()
+		return HttpResponse('{\"status\": \"ok, author deleted successfully\"}')
+	except:
+		return HttpResponse('{\"status\": \"error, author does not exist\"}')
 
 
 @csrf_exempt
