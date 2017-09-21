@@ -58,4 +58,34 @@
     "rating": 2.0,
     "author": 5
   }
+}, {
+  "model": "api.review",
+  "pk": 1,
+  "fields": {
+    "reviewer": "Mr. Bean",
+    "pub_date": "2017-09-21T20:48:15.249Z",
+    "book": 2,
+    "rating": 3.0,
+    "content": "I love this book so much!! Must buy!"
+  }
+}, {
+  "model": "api.review",
+  "pk": 2,
+  "fields": {
+    "reviewer": "Arthur",
+    "pub_date": "2017-09-21T20:49:04.331Z",
+    "book": 2,
+    "rating": 1.0,
+    "content": "This book sucks! I wish I never spent money on it. "
+  }
+}, {
+  "model": "api.review",
+  "pk": 3,
+  "fields": {
+    "reviewer": "Arthur",
+    "pub_date": "2017-09-21T20:50:27.068Z",
+    "book": 3,
+    "rating": 4.5,
+    "content": "I got this book as a gift from my dad, really enjoyed it!"
+  }
 }]
