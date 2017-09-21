@@ -26,7 +26,8 @@ def serialize(obj):
 	return data[0] # Cuts off the first and last char '[' and ']' to match assignment format.
 
 
-def generate_response(res, msg, obj=None):
+def generate_response(msg, obj=None):
+	res = {}
 	if obj is None:
 		res["success"] = False
 		res["msg"] = msg
@@ -43,16 +44,15 @@ def author(request, author_id):
 	GET - return the row in the corresponding database table in JSON.
 	POST - be able to update a row in the table given a set of key-value form encoded pairs (PREFERRED, NOT JSON)
 	"""
-	res = {}
 	if request.method == 'GET':
 		# Need to GET the csrf token and add as a header in postman POST request
 		# for key X-CSRFToken for post requests to work
 		#return HttpResponse(get_token(request))
 		try:
 			author = Author.objects.get(pk=author_id)
-			return generate_response(res, author, "author found")
+			return generate_response( "author found", author)
 		except:
-			return generate_response(res, "author not found")
+			return generate_response( "author not found")
 
 	if request.method == 'POST':
 		try:
@@ -66,9 +66,9 @@ def author(request, author_id):
 				elif key == 'age':
 					author.age = value
 			author.save()
-			return generate_response(res, author, "author updated")
+			return generate_response( "author updated", author)
 		except:
-			return generate_response(res, "author not found")
+			return generate_response( "author not found")
 
 
 @csrf_exempt
@@ -78,7 +78,6 @@ def create_author(request):
 	This currently accepts the preferred method of key-value form data as stated in the 
 	Project 2 description.
 	"""
-	res = {}
 	if request.method == 'POST':
 
 		# Try to parse values and save to database
@@ -92,14 +91,14 @@ def create_author(request):
 				age = age
 				)
 			author.save()
-			return generate_response(res, author, "author created")
+			return generate_response("author created", author)
 
 		# Print the exception if we run into one.
 		except Exception as e:
-			return generate_response(res, e)
+			return generate_response( e)
 
 	# We only accept POST requests to this endpoint.
-	return generate_response(res, "only POST requests are allowed")
+	return generate_response("only POST requests are allowed")
 
 
 @csrf_exempt
@@ -118,16 +117,15 @@ def book(request, book_id):
 	GET - return the row in the corresponding database table in JSON.
 	POST - be able to update a row in the table given a set of key-value form encoded pairs (PREFERRED, NOT JSON)
 	"""
-	res = {}
 	if request.method == 'GET':
 		# Need to GET the csrf token and add as a header in postman POST request
 		# for key X-CSRFToken for post requests to work
 		#return HttpResponse(get_token(request))
 		try:
 			book = Book.objects.get(pk=book_id)
-			return generate_response(res, book, "book found")
+			return generate_response( "book found", book)
 		except:
-			return generate_response(res, "book not found")
+			return generate_response( "book not found")
 
 	if request.method == 'POST':
 		try:
@@ -143,9 +141,9 @@ def book(request, book_id):
 				elif key == 'author':
 					book.author = value
 			book.save()
-			return generate_response(res, book, "book updated")
+			return generate_response( "book updated", book)
 		except:
-			return generate_response(res, "book not found")
+			return generate_response( "book not found")
 
 
 @csrf_exempt
@@ -171,14 +169,14 @@ def create_book(request):
 				author = author,
 				)
 			book.save()
-			return HttpResponse("Saved Book successfully.")
+			return generate_response( "book saved", book)
 
 		# Print the exception if we run into one.
 		except Exception as e:
-			return HttpResponse(e)
+			return generate_response( e)
 
 	# We only accept POST requests to this endpoint.
-	return HttpResponse("400 - Bad request, make sure to POST")
+	return generate_response( "Only POST requests allowed")
 
 
 @csrf_exempt
@@ -186,9 +184,9 @@ def delete_book(request, book_id):
 	try:
 		book = Book.objects.get(pk=book_id)
 		book.delete()
-		return HttpResponse('{\"status\": \"ok, book deleted successfully\"}')
+		return generate_response( "book deleted", book)
 	except:
-		return HttpResponse('{\"status\": \"error, book does not exist\"}')
+		return generate_response( "book does not exist")
 
 
 @csrf_exempt
@@ -197,16 +195,15 @@ def review(request, review_id):
 	GET - return the row in the corresponding database table in JSON.
 	POST - be able to update a row in the table given a set of key-value form encoded pairs (PREFERRED, NOT JSON)
 	"""
-	res = {}
 	if request.method == 'GET':
 		# Need to GET the csrf token and add as a header in postman POST request
 		# for key X-CSRFToken for post requests to work
 		#return HttpResponse(get_token(request))
 		try:
 			review = Review.objects.get(pk=review_id)
-			return generate_response(res, review, "review found")
+			return generate_response( "review found", review)
 		except:
-			return generate_response(res, "review not found")
+			return generate_response( "review not found")
 
 	if request.method == 'POST':
 		try:
@@ -224,9 +221,9 @@ def review(request, review_id):
 				elif key == 'content':
 					review.content = value
 			review.save()
-			return generate_response(res, review, "review updated")
+			return generate_response( "review updated", review)
 		except:
-			return generate_response(res, "review not found")
+			return generate_response( "review not found")
 
 
 @csrf_exempt
@@ -252,14 +249,14 @@ def create_review(request):
 				content = content,
 				)
 			review.save()
-			return HttpResponse("Saved Review successfully.")
+			return generate_response( "review saved", review)
 
 		# Print the exception if we run into one.
 		except Exception as e:
-			return HttpResponse(e)
+			return generate_response( e)
 
 	# We only accept POST requests to this endpoint.
-	return HttpResponse("400 - Bad request, make sure to POST")
+	return generate_response( "Only POST requests allowed")
 
 
 @csrf_exempt
@@ -267,9 +264,9 @@ def delete_review(request, review_id):
 	try:
 		review = Review.objects.get(pk=review_id)
 		review.delete()
-		return HttpResponse('{\"status\": \"ok, review deleted successfully\"}')
+		return generate_response( "review deleted", review)
 	except:
-		return HttpResponse('{\"status\": \"error, review does not exist\"}')
+		return generate_response( "review does not exist")
 
 
 

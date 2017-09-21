@@ -1,0 +1,61 @@
+[{
+  "model": "api.author",
+  "pk": 1,
+  "fields": {
+    "first_name": "Barack ",
+    "last_name": "Obama",
+    "age": 45
+  }
+}, {
+  "model": "api.author",
+  "pk": 4,
+  "fields": {
+    "first_name": "Gayle",
+    "last_name": "McDowell",
+    "age": 40
+  }
+}, {
+  "model": "api.author",
+  "pk": 5,
+  "fields": {
+    "first_name": "Mary",
+    "last_name": "Shelly",
+    "age": 100
+  }
+}, {
+  "model": "api.book",
+  "pk": 1,
+  "fields": {
+    "title": "Green Eggs and Ham",
+    "year_published": 2000,
+    "rating": 5.0,
+    "author": 1
+  }
+}, {
+  "model": "api.book",
+  "pk": 2,
+  "fields": {
+    "title": "Cracking the Coding Interview",
+    "year_published": 2015,
+    "rating": 4.5,
+    "author": 4
+  }
+}, {
+  "model": "api.book",
+  "pk": 3,
+  "fields": {
+    "title": "Frankenstein",
+    "year_published": 1950,
+    "rating": 4.5,
+    "author": 5
+  }
+}, {
+  "model": "api.book",
+  "pk": 4,
+  "fields": {
+    "title": "Mathilda",
+    "year_published": 1820,
+    "rating": 2.0,
+    "author": 5
+  }
+}]
