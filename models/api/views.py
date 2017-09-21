@@ -25,6 +25,7 @@ def serialize(obj):
 	data = loads(serialized)
 	return data[0] # Cuts off the first and last char '[' and ']' to match assignment format.
 
+
 def generate_response(res, msg, obj=None):
 	if obj is None:
 		res["success"] = False
@@ -34,6 +35,7 @@ def generate_response(res, msg, obj=None):
 		res["success"] = True
 		res["msg"] = msg
 	return HttpResponse(dumps(res))
+
 
 @csrf_exempt
 def author(request, author_id):
@@ -127,6 +129,7 @@ def book(request, book_id):
 			return HttpResponse('The primary key for book does not exist or something went wrong in serialization.')
 	if request.method == 'POST':
 		return HttpResponse('POST ' +  book_id)
+
 
 @csrf_exempt
 def create_book(request):

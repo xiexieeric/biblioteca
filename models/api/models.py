@@ -12,13 +12,15 @@ class Author(models.Model):
 
 class Book(models.Model):
 	title = models.CharField(max_length=200)
-	pub_date = models.IntegerField()
+	year_published = models.IntegerField()
 	rating = models.FloatField()
 	author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return "%s - %s - %s - %s %s" % (self.title, 
 			self.pub_date, self.rating, self.author.first_name, self.author.last_name)
+
+		
 class Review(models.Model):
 	reviewer = models.CharField(max_length=200)
 	pub_date = models.DateTimeField(auto_now_add=True)
