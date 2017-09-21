@@ -25,6 +25,15 @@ def serialize(obj):
 	data = loads(serialized)
 	return data[0] # Cuts off the first and last char '[' and ']' to match assignment format.
 
+def generate_response(res, msg, obj=None):
+	if obj is None:
+		res["success"] = False
+		res["msg"] = msg
+	else:
+		res["result"] = serialize(obj)
+		res["success"] = True
+		res["msg"] = msg
+	return HttpResponse(dumps(res))
 
 @csrf_exempt
 def author(request, author_id):
@@ -39,14 +48,9 @@ def author(request, author_id):
 		#return HttpResponse(get_token(request))
 		try:
 			author = Author.objects.get(pk=author_id)
-			res["success"] = True
-			res["msg"] = "Author found"
-			res["result"] = serialize(author)
-			return HttpResponse(dumps(res))
+			return generate_response(res, author, "author found")
 		except:
-			res["success"] = False
-			res["msg"] = "Author does not exist"
-			return HttpResponse(dumps(res))
+			return generate_response(res, "author not found")
 
 	if request.method == 'POST':
 		try:
@@ -60,14 +64,9 @@ def author(request, author_id):
 				elif key == 'age':
 					author.age = value
 			author.save()
-			res["success"] = True
-			res["msg"] = "Author updated"
-			res["result"] = serialize(author)
-			return HttpResponse(dumps(res))
+			return generate_response(res, author, "author updated")
 		except:
-			res["success"] = False
-			res["msg"] = "Author does not exist"
-			return HttpResponse(dumps(res))
+			return generate_response(res, "author not found")
 
 @csrf_exempt
 def create_author(request):
@@ -90,19 +89,14 @@ def create_author(request):
 				age = age
 				)
 			author.save()
-			res["success"] = True
-			res["msg"] = "Author created"
-			res["result"] = serialize(author)
-			return HttpResponse(dumps(res))
+			return generate_response(res, author, "author created")
 
 		# Print the exception if we run into one.
 		except Exception as e:
-			res["success"] = False
-			res["msg"] = e
-			return HttpResponse(dumps(res))
+			return generate_response(res, e)
 
 	# We only accept POST requests to this endpoint.
-	return HttpResponse('{\"status\": \"error, only POST is allowed\"}')
+	return generate_response(res, "only POST requests are allowed")
 
 
 @csrf_exempt
