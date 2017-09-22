@@ -95,7 +95,7 @@ def create_author(request):
 
 		# Print the exception if we run into one.
 		except Exception as e:
-			return generate_response( e)
+			return generate_response(str(e))
 
 	# We only accept POST requests to this endpoint.
 	return generate_response("only POST requests are allowed")
@@ -174,7 +174,7 @@ def create_book(request):
 
 		# Print the exception if we run into one.
 		except Exception as e:
-			return generate_response( e)
+			return generate_response(str(e))
 
 	# We only accept POST requests to this endpoint.
 	return generate_response( "Only POST requests allowed")
@@ -255,7 +255,7 @@ def create_review(request):
 
 		# Print the exception if we run into one.
 		except Exception as e:
-			return generate_response( e)
+			return generate_response(str(e))
 
 	# We only accept POST requests to this endpoint.
 	return generate_response( "Only POST requests allowed")
