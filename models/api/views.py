@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
 
@@ -35,7 +35,7 @@ def generate_response(msg, obj=None):
 		res["result"] = serialize(obj)
 		res["success"] = True
 		res["msg"] = msg
-	return HttpResponse(dumps(res))
+	return JsonResponse(res)
 
 
 @csrf_exempt
@@ -106,9 +106,9 @@ def delete_author(request, author_id):
 	try:
 		author = Author.objects.get(pk=author_id)
 		author.delete()
-		return HttpResponse('{\"status\": \"ok, author deleted successfully\"}')
+		return generate_response("author deleted", author)
 	except:
-		return HttpResponse('{\"status\": \"error, author does not exist\"}')
+		return generate_response("author not found")
 
 
 @csrf_exempt
@@ -139,7 +139,8 @@ def book(request, book_id):
 				elif key == 'rating':
 					book.rating = value
 				elif key == 'author':
-					book.author = value
+					author = Author.objects.get(pk=value)	
+					book.author = author
 			book.save()
 			return generate_response( "book updated", book)
 		except:
@@ -215,7 +216,8 @@ def review(request, review_id):
 				elif key == 'pub_date':
 					review.pub_date = value
 				elif key == 'book':
-					review.book = value
+					book = Book.objects.get(pk=value)	
+					review.book = book
 				elif key == 'rating':
 					review.rating = value
 				elif key == 'content':
