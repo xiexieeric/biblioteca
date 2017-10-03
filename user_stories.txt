@@ -1,0 +1,59 @@
+Biblioteca Bookstore Use Cases
+Jennifer Fang, Brandon Liu, Eric Xie
+
+1. As a user (buyer), I can search for books I want to buy by title and by author.
+
+    Test cases:
+
+    1. User can search by typing into a search bar.
+    2. Results of the search are instantly displayed in the default, alphabetical order.
+    3. When the user searches for books by the title "Harry Potter" returns only books with Harry and Potter in the title.
+    4. When the user searches for books by the author "J.K. Rowling" returns only books with J.K. Rowling as the author.
+
+2. As a user (buyer), I can sort the results of my search by price and by rating/review.
+
+    Test cases:
+
+    1. User can sort the results of their search by selecting a sorting category from a drop down menu.
+    2. User can select to sort by highest/lowest price, which correctly returns the items sorted in descending
+        and ascending price order respectively.
+    3. User can select to sort by highest/lowest rating, which correctly returns the items sorted by descending
+        and ascending rating respectively.
+
+3. As a user (buyer), I can add books to my shopping cart, which can later be bought.
+
+    Test cases:
+
+    1. Add to cart button is visible on all book posting pages.
+    2. User can add books to their shopping cart by clicking the Add to Cart button.
+    3. User can view the items in their shopping cart.
+    4. User can delete items from their shopping cart.
+
+4. As a user (buyer), I can easily buy books by checking my shopping cart out and entering in my payment information.
+
+    Test cases:
+
+    1. When user views their cart, the checkout button is present on the shopping cart page.
+    2. User can checkout their shopping cart by pressing the checkout button.
+    3. Checking out their shopping cart takes the user to a page where they need to input their payment and delivery
+        information to purchase their book(s).
+    4. When book is successfully purchased, the quantity and listing of the book being sold are updated accordingly.
+
+5. As a user (seller), I can post books I want to sell to Biblioteca, and other users will be able to see and buy my books.
+
+    Test cases:
+
+    1. User can post book for sale by filling out information about the book and adding the price and quantity of the book.
+    2. The book that is being put up for sale is visible when users search for that book and visible on the poster's profile.
+    3. Other users can add the book that was posted for sale to their shopping cart and purchase the book.
+
+6. As a user (seller), I can receive payment for the books I have successfully sold.
+
+    Test cases:
+
+    1. The seller can add their payment information to their profile.
+    2. When buyers purchase the seller's books, payment is wired from the buyer's account to the seller's account.
+
+
+
+
