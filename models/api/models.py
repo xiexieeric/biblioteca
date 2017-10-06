@@ -23,7 +23,7 @@ class Book(models.Model):
 
 class Review(models.Model):
 	reviewer = models.CharField(max_length=200)
-	pub_date = models.DateTimeField(auto_now_add=True)
+	pub_date = models.CharField(max_length=200)
 	book = models.ForeignKey(Book)
 	rating = models.FloatField(default=0)
 	content = models.TextField()
