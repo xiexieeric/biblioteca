@@ -240,14 +240,12 @@ def create_review(request):
 		# Try to parse values and save to database
 		try:
 			reviewer = request.POST['reviewer']
-			pub_date = request.POST['pub_date']
 			book_id = request.POST['book']
 			book = Book.objects.get(pk=book_id)			
 			rating = request.POST['rating']
 			content = request.POST['content']
 			review = Review(
 				reviewer = reviewer, 
-				pub_date = pub_date,
 				book = book,
 				rating = rating,
 				content = content,
