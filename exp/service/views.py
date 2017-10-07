@@ -70,11 +70,51 @@ def __get_sorted_book_results(key, count, reverse = True):
 	sorted_result = []
 	for book in get_result:
 		data = book['fields']
+		data['pk'] = book['pk']
 		index = data[key]
 		sorted_result.append((int(index), data))
 	sorted_result = sorted(sorted_result, key = lambda x: x[0], reverse = reverse)
 	sorted_result = sorted_result[0:int(count)]
 	return [data for (published, data) in sorted_result]
+
+
+@csrf_exempt
+def book(request, book_id): 
+	if request.method == 'GET':
+		r = __make_request(__MODELS_URL + __BOOK + book_id)
+	elif request.method == 'POST':
+		r = __make_request(
+			__MODELS_URL + __BOOK + book_id, 
+			data = request.POST, 
+			method = 'POST'
+		)
+	return JsonResponse(r)
+
+
+@csrf_exempt
+def author(request, author_id): 
+	if request.method == 'GET':
+		r = __make_request(__MODELS_URL + __AUTHOR + author_id)
+	elif request.method == 'POST':
+		r = __make_request(
+			__MODELS_URL + __BOOK + author_id, 
+			data = request.POST, 
+			method = 'POST'
+		)
+	return JsonResponse(r)
+
+
+@csrf_exempt
+def review(request, review_id): 
+	if request.method == 'GET':
+		r = __make_request(__MODELS_URL + __REVIEW + review_id)
+	elif request.method == 'POST':
+		r = __make_request(
+			__MODELS_URL + __BOOK + review_id, 
+			data = request.POST, 
+			method = 'POST'
+		)
+	return JsonResponse(r)
 
 
 def __make_request(url, data = None, method = 'GET'):
