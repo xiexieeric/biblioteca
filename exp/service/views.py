@@ -19,31 +19,67 @@ def index(request):
 
 
 @csrf_exempt
-def get_top_books(request, top):
+def home(request):
+	if request.method == 'GET':
+		result = {
+			'top_books': __get_sorted_book_results('rating', 10),
+			'recent_books': __get_sorted_book_results('year_published', 10)
+		}
+		return __generate_response('home page data', True, result)
+	else:
+		return __generate_response('only GET accepted', False)
+
+
+@csrf_exempt
+def get_top_books(request, count):
 	"""
-	top - int representing number of top results to return. If greater than the size of the db, returns db.
+	count - int representing number of top results to return. If greater than the size of the db, returns db.
 	"""
 	if request.method == 'GET':
 		try:
-			r = __make_request(__MODELS_URL + __BOOK + 'all')
-			get_result = r['result']
-			sorted_result = []
-			for book in get_result:
-				data = book['fields']
-				rating = data['rating']
-				sorted_result.append((float(rating), data))
-			sorted_result = sorted(sorted_result, key = lambda x: x[0], reverse = True)
-			sorted_result = sorted_result[0:int(top)]
-			returned_list = [data for (rating, data) in sorted_result]
-			return __generate_response(top, True, returned_list)
+			result = __get_sorted_book_results('rating', count)
+			return __generate_response(count, True, result)
 
-		except Exception as e:
+		except Exception as e:	
 			return __generate_response(str(e), False)
+			
+	else:
+		return __generate_response('only GET accepted', False)
+
+
+@csrf_exempt
+def get_recent_books(request, count):
+	"""
+	count - int representing number of results to return. If greater than the size of the db, returns db.
+	"""
+	if request.method == 'GET':
+		try:
+			result = __get_sorted_book_results('year_published', count)
+			return __generate_response(count, True, result)
+
+		except Exception as e:	
+			return __generate_response(str(e), False)
+
+	else:
+		return __generate_response('only GET accepted', False)
+
+
+def __get_sorted_book_results(key, count, reverse = True):
+	r = __make_request(__MODELS_URL + __BOOK + 'all')
+	get_result = r['result']
+	sorted_result = []
+	for book in get_result:
+		data = book['fields']
+		index = data[key]
+		sorted_result.append((int(index), data))
+	sorted_result = sorted(sorted_result, key = lambda x: x[0], reverse = reverse)
+	sorted_result = sorted_result[0:int(count)]
+	return [data for (published, data) in sorted_result]
 
 
 def __make_request(url, data = None, method = 'GET'):
 	if data:
-		post_encodeda = parse.urlencode(data).encode('utf-8')
+		post_encoded = parse.urlencode(data).encode('utf-8')
 		req = requests.Request(
 			url, 
 			data = post_encoded, 
