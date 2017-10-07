@@ -29,4 +29,4 @@ web:
         - .:/app
     ports:
         - "8000:8000"
-    command: bash -c "cd web && mod_wsgi-express start-server --working-directory /app/web --reload-on-changes /app/web/web/wsgi.py"
+    command: bash -c "cd web && mod_wsgi-express start-server --url-alias /static static --working-directory /app/web --reload-on-changes /app/web/web/wsgi.py"
