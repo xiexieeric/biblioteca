@@ -3,15 +3,11 @@ from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
 
-
 from api.models import Author, Book, Review
 
 from json import loads, dumps
 from django.core import serializers
 
-
-
-# Create your views here.
 
 def index(request):
 	return HttpResponse('Welcome to the index page for API v1')
@@ -26,15 +22,16 @@ def serialize(obj):
 	return data[0] # Cuts off the first and last char '[' and ']' to match assignment format.
 
 
-def generate_response(msg, obj=None):
+def generate_response(msg, success, obj=None, li=None):
 	res = {}
-	if obj is None:
-		res["success"] = False
-		res["msg"] = msg
-	else:
-		res["result"] = serialize(obj)
-		res["success"] = True
-		res["msg"] = msg
+	res["success"] = success
+	res["msg"] = msg
+	if obj: res["result"] = serialize(obj)
+	elif li:
+		json_list = []
+		for entry in li:
+			json_list.append(serialize(entry))
+		res["result"] = json_list
 	return JsonResponse(res)
 
 
@@ -45,14 +42,14 @@ def author(request, author_id):
 	POST - be able to update a row in the table given a set of key-value form encoded pairs (PREFERRED, NOT JSON)
 	"""
 	if request.method == 'GET':
-		# Need to GET the csrf token and add as a header in postman POST request
-		# for key X-CSRFToken for post requests to work
-		#return HttpResponse(get_token(request))
+		if author_id == 'all':
+			all_authors = list(Author.objects.all())
+			return generate_response("all authors", True, li=all_authors)
 		try:
 			author = Author.objects.get(pk=author_id)
-			return generate_response( "author found", author)
+			return generate_response("author found", True, author)
 		except:
-			return generate_response( "author not found")
+			return generate_response("author not found", False)
 
 	if request.method == 'POST':
 		try:
@@ -66,9 +63,9 @@ def author(request, author_id):
 				elif key == 'age':
 					author.age = value
 			author.save()
-			return generate_response( "author updated", author)
+			return generate_response("author updated", True, author)
 		except:
-			return generate_response( "author not found")
+			return generate_response("author not found", False)
 
 
 @csrf_exempt
@@ -91,14 +88,14 @@ def create_author(request):
 				age = age
 				)
 			author.save()
-			return generate_response("author created", author)
+			return generate_response("author created", True, author)
 
 		# Print the exception if we run into one.
 		except Exception as e:
-			return generate_response(str(e))
+			return generate_response(str(e), False)
 
 	# We only accept POST requests to this endpoint.
-	return generate_response("only POST requests are allowed")
+	return generate_response("only POST requests are allowed", False)
 
 
 @csrf_exempt
@@ -106,9 +103,9 @@ def delete_author(request, author_id):
 	try:
 		author = Author.objects.get(pk=author_id)
 		author.delete()
-		return generate_response("author deleted", author)
+		return generate_response("author deleted", True, author)
 	except:
-		return generate_response("author not found")
+		return generate_response("author not found", False)
 
 
 @csrf_exempt
@@ -118,14 +115,14 @@ def book(request, book_id):
 	POST - be able to update a row in the table given a set of key-value form encoded pairs (PREFERRED, NOT JSON)
 	"""
 	if request.method == 'GET':
-		# Need to GET the csrf token and add as a header in postman POST request
-		# for key X-CSRFToken for post requests to work
-		#return HttpResponse(get_token(request))
+		if book_id == 'all':
+			all_books = list(Book.objects.all())
+			return generate_response("all book", True, li=all_books)
 		try:
 			book = Book.objects.get(pk=book_id)
-			return generate_response( "book found", book)
+			return generate_response("book found", True, book)
 		except:
-			return generate_response( "book not found")
+			return generate_response("book not found", False)
 
 	if request.method == 'POST':
 		try:
@@ -142,9 +139,9 @@ def book(request, book_id):
 					author = Author.objects.get(pk=value)	
 					book.author = author
 			book.save()
-			return generate_response( "book updated", book)
+			return generate_response("book updated", True, book)
 		except:
-			return generate_response( "book not found")
+			return generate_response("book not found", False)
 
 
 @csrf_exempt
@@ -170,14 +167,14 @@ def create_book(request):
 				author = author,
 				)
 			book.save()
-			return generate_response( "book saved", book)
+			return generate_response("book saved", True, book)
 
 		# Print the exception if we run into one.
 		except Exception as e:
-			return generate_response(str(e))
+			return generate_response(str(e), False)
 
 	# We only accept POST requests to this endpoint.
-	return generate_response( "Only POST requests allowed")
+	return generate_response("Only POST requests allowed", False)
 
 
 @csrf_exempt
@@ -185,9 +182,9 @@ def delete_book(request, book_id):
 	try:
 		book = Book.objects.get(pk=book_id)
 		book.delete()
-		return generate_response( "book deleted", book)
+		return generate_response("book deleted", True, book)
 	except:
-		return generate_response( "book does not exist")
+		return generate_response("book does not exist", False)
 
 
 @csrf_exempt
@@ -197,14 +194,14 @@ def review(request, review_id):
 	POST - be able to update a row in the table given a set of key-value form encoded pairs (PREFERRED, NOT JSON)
 	"""
 	if request.method == 'GET':
-		# Need to GET the csrf token and add as a header in postman POST request
-		# for key X-CSRFToken for post requests to work
-		#return HttpResponse(get_token(request))
+		if review_id == 'all':
+			all_reviews = list(Review.objects.all())
+			return generate_response("all reviews", True, li=all_reviews)
 		try:
 			review = Review.objects.get(pk=review_id)
-			return generate_response( "review found", review)
+			return generate_response("review found", True, review)
 		except:
-			return generate_response( "review not found")
+			return generate_response("review not found", False)
 
 	if request.method == 'POST':
 		try:
@@ -223,9 +220,9 @@ def review(request, review_id):
 				elif key == 'content':
 					review.content = value
 			review.save()
-			return generate_response( "review updated", review)
+			return generate_response("review updated", True, review)
 		except:
-			return generate_response( "review not found")
+			return generate_response("review not found", False)
 
 
 @csrf_exempt
@@ -253,14 +250,14 @@ def create_review(request):
 				content = content,
 				)
 			review.save()
-			return generate_response( "review saved", review)
+			return generate_response("review saved", True, review)
 
 		# Print the exception if we run into one.
 		except Exception as e:
-			return generate_response(str(e))
+			return generate_response(str(e), False)
 
 	# We only accept POST requests to this endpoint.
-	return generate_response( "Only POST requests allowed")
+	return generate_response("Only POST requests allowed", False)
 
 
 @csrf_exempt
@@ -268,9 +265,9 @@ def delete_review(request, review_id):
 	try:
 		review = Review.objects.get(pk=review_id)
 		review.delete()
-		return generate_response( "review deleted", review)
+		return generate_response("review deleted", True, review)
 	except:
-		return generate_response( "review does not exist")
+		return generate_response("review does not exist", False)
 
 
 
