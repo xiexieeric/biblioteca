@@ -23,6 +23,22 @@
     "age": 100
   }
 }, {
+  "model": "api.author",
+  "pk": 6,
+  "fields": {
+    "first_name": "Rupi",
+    "last_name": "Kaur",
+    "age": 28
+  }
+}, {
+  "model": "api.author",
+  "pk": 7,
+  "fields": {
+    "first_name": "J.K.",
+    "last_name": "Rowling",
+    "age": 50
+  }
+}, {
   "model": "api.book",
   "pk": 1,
   "fields": {
@@ -53,10 +69,55 @@
   "model": "api.book",
   "pk": 4,
   "fields": {
-    "title": "Mathilda",
-    "year_published": 1820,
-    "rating": 2.0,
+    "title": "Cat in the Hat",
+    "year_published": 2015,
+    "rating": 4.8,
+    "author": 1
+  }
+}, {
+  "model": "api.book",
+  "pk": 5,
+  "fields": {
+    "title": "Milk and Honey",
+    "year_published": 2017,
+    "rating": 4.7,
+    "author": 6
+  }
+}, {
+  "model": "api.book",
+  "pk": 6,
+  "fields": {
+    "title": "Frankenstein 2",
+    "year_published": 2016,
+    "rating": 2.1,
     "author": 5
+  }
+}, {
+  "model": "api.book",
+  "pk": 7,
+  "fields": {
+    "title": "Harry Potter and the Deathly Hallows",
+    "year_published": 2014,
+    "rating": 4.9,
+    "author": 7
+  }
+}, {
+  "model": "api.book",
+  "pk": 8,
+  "fields": {
+    "title": "Harry Potter and the Goblet of Fire",
+    "year_published": 2009,
+    "rating": 1.4,
+    "author": 7
+  }
+}, {
+  "model": "api.book",
+  "pk": 9,
+  "fields": {
+    "title": "Harry Potter and the Sorcerer's Stone",
+    "year_published": 2001,
+    "rating": 1.8,
+    "author": 7
   }
 }, {
   "model": "api.review",
