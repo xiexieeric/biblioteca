@@ -71,7 +71,7 @@ def __get_sorted_book_results(key, count, reverse = True):
 	for book in get_result:
 		data = book['fields']
 		index = data[key]
-		sorted_result.append((int(index), data))
+		sorted_result.append((float(index), data))
 	sorted_result = sorted(sorted_result, key = lambda x: x[0], reverse = reverse)
 	sorted_result = sorted_result[0:int(count)]
 	return [data for (published, data) in sorted_result]
