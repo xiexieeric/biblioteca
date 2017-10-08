@@ -27,7 +27,7 @@ def book_detail(request, book_id):
 		context["author_last"] = resp_2["result"]["fields"]["last_name"]
 		return render(request, 'frontend/detail.html', context)
 	else:
-		return redirect('not_found')
+		return redirect('/notfound')
 
 def not_found(request):
 	return render(request, 'frontend/404.html', {})
