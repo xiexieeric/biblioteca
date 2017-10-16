@@ -55,5 +55,18 @@ Jennifer Fang, Brandon Liu, Eric Xie
     2. When buyers purchase the seller's books, payment is wired from the buyer's account to the seller's account.
 
 
+7. As a user, I can login to my account with a username and password I chose, and I will stay logged in until I choose to logout.
+
+    Test cases:
+
+    1. User can successfully register with their chosen username and password; error occurs if username is already taken.
+    2. Success when user tries to login with their correct registered username and password.
+    3. Failure when user triest to login with an incorrect username or incorrect password; graceful error message is shown.
+    4. User stays logged in through storing the authenticator as an HTTP cookie that is returned from logging in.
+    5. When user goes to the logout page and logs out, their cookie is deleted and a success message is returned.
+    6. If user tries to access the site after logging out, site prompts them to log back in.
+
+
+
 
 
