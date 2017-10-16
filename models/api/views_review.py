@@ -100,6 +100,8 @@ def __handle_create_review_post(request):
 		)
 		review.save()
 		return generate_response("review saved", True, review)
+	except KeyError as e:
+		return generate_response("missing %s" % e.args[0].strip("'"), False)
 	except Exception as e:
 		return generate_response(str(e), False)
 

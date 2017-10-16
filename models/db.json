@@ -1,152 +1,184 @@
-[{
-  "model": "api.author",
-  "pk": 1,
-  "fields": {
-    "first_name": "Barack ",
-    "last_name": "Obama",
-    "age": 45
+[
+  {
+    "model": "api.user",
+    "pk": 1,
+    "fields": {
+      "username": "brandon",
+      "password": "liu",
+      "first_name": "Brandon",
+      "last_name": "Liu" 
+    }
+  },
+  {
+    "model": "api.user",
+    "pk": 2,
+    "fields": {
+      "username": "jennifer",
+      "password": "fang",
+      "first_name": "Jennifer",
+      "last_name": "Fang" 
+    }
+  },
+  {
+    "model": "api.user",
+    "pk": 3,
+    "fields": {
+      "username": "eric",
+      "password": "xie",
+      "first_name": "Eric",
+      "last_name": "Xie" 
+    }
+  },
+  {
+    "model": "api.author",
+    "pk": 1,
+    "fields": {
+      "first_name": "Barack ",
+      "last_name": "Obama",
+      "age": 45
+    }
+  }, {
+    "model": "api.author",
+    "pk": 4,
+    "fields": {
+      "first_name": "Gayle",
+      "last_name": "McDowell",
+      "age": 40
+    }
+  }, {
+    "model": "api.author",
+    "pk": 5,
+    "fields": {
+      "first_name": "Mary",
+      "last_name": "Shelly",
+      "age": 100
+    }
+  }, {
+    "model": "api.author",
+    "pk": 6,
+    "fields": {
+      "first_name": "Rupi",
+      "last_name": "Kaur",
+      "age": 28
+    }
+  }, {
+    "model": "api.author",
+    "pk": 7,
+    "fields": {
+      "first_name": "J.K.",
+      "last_name": "Rowling",
+      "age": 50
+    }
+  }, {
+    "model": "api.book",
+    "pk": 1,
+    "fields": {
+      "title": "Green Eggs and Ham",
+      "year_published": 2000,
+      "rating": 5.0,
+      "author": 1
+    }
+  }, {
+    "model": "api.book",
+    "pk": 2,
+    "fields": {
+      "title": "Cracking the Coding Interview",
+      "year_published": 2015,
+      "rating": 4.5,
+      "author": 4
+    }
+  }, {
+    "model": "api.book",
+    "pk": 3,
+    "fields": {
+      "title": "Frankenstein",
+      "year_published": 1950,
+      "rating": 4.5,
+      "author": 5
+    }
+  }, {
+    "model": "api.book",
+    "pk": 4,
+    "fields": {
+      "title": "Cat in the Hat",
+      "year_published": 2015,
+      "rating": 4.8,
+      "author": 1
+    }
+  }, {
+    "model": "api.book",
+    "pk": 5,
+    "fields": {
+      "title": "Milk and Honey",
+      "year_published": 2017,
+      "rating": 4.7,
+      "author": 6
+    }
+  }, {
+    "model": "api.book",
+    "pk": 6,
+    "fields": {
+      "title": "Frankenstein 2",
+      "year_published": 2016,
+      "rating": 2.1,
+      "author": 5
+    }
+  }, {
+    "model": "api.book",
+    "pk": 7,
+    "fields": {
+      "title": "Harry Potter and the Deathly Hallows",
+      "year_published": 2014,
+      "rating": 4.9,
+      "author": 7
+    }
+  }, {
+    "model": "api.book",
+    "pk": 8,
+    "fields": {
+      "title": "Harry Potter and the Goblet of Fire",
+      "year_published": 2009,
+      "rating": 1.4,
+      "author": 7
+    }
+  }, {
+    "model": "api.book",
+    "pk": 9,
+    "fields": {
+      "title": "Harry Potter and the Sorcerer's Stone",
+      "year_published": 2001,
+      "rating": 1.8,
+      "author": 7
+    }
+  }, {
+    "model": "api.review",
+    "pk": 1,
+    "fields": {
+      "reviewer": 1,
+      "pub_date": "2017-09-21T20:48:15.249Z",
+      "book": 2,
+      "rating": 3.0,
+      "content": "I love this book so much!! Must buy!"
+    }
+  }, {
+    "model": "api.review",
+    "pk": 2,
+    "fields": {
+      "reviewer": 2,
+      "pub_date": "2017-09-21T20:49:04.331Z",
+      "book": 2,
+      "rating": 1.0,
+      "content": "This book sucks! I wish I never spent money on it. "
+    }
+  }, {
+    "model": "api.review",
+    "pk": 3,
+    "fields": {
+      "reviewer": 3,
+      "pub_date": "2017-09-21T20:50:27.068Z",
+      "book": 3,
+      "rating": 4.5,
+      "content": "I got this book as a gift from my dad, really enjoyed it!"
+    }
   }
-}, {
-  "model": "api.author",
-  "pk": 4,
-  "fields": {
-    "first_name": "Gayle",
-    "last_name": "McDowell",
-    "age": 40
-  }
-}, {
-  "model": "api.author",
-  "pk": 5,
-  "fields": {
-    "first_name": "Mary",
-    "last_name": "Shelly",
-    "age": 100
-  }
-}, {
-  "model": "api.author",
-  "pk": 6,
-  "fields": {
-    "first_name": "Rupi",
-    "last_name": "Kaur",
-    "age": 28
-  }
-}, {
-  "model": "api.author",
-  "pk": 7,
-  "fields": {
-    "first_name": "J.K.",
-    "last_name": "Rowling",
-    "age": 50
-  }
-}, {
-  "model": "api.book",
-  "pk": 1,
-  "fields": {
-    "title": "Green Eggs and Ham",
-    "year_published": 2000,
-    "rating": 5.0,
-    "author": 1
-  }
-}, {
-  "model": "api.book",
-  "pk": 2,
-  "fields": {
-    "title": "Cracking the Coding Interview",
-    "year_published": 2015,
-    "rating": 4.5,
-    "author": 4
-  }
-}, {
-  "model": "api.book",
-  "pk": 3,
-  "fields": {
-    "title": "Frankenstein",
-    "year_published": 1950,
-    "rating": 4.5,
-    "author": 5
-  }
-}, {
-  "model": "api.book",
-  "pk": 4,
-  "fields": {
-    "title": "Cat in the Hat",
-    "year_published": 2015,
-    "rating": 4.8,
-    "author": 1
-  }
-}, {
-  "model": "api.book",
-  "pk": 5,
-  "fields": {
-    "title": "Milk and Honey",
-    "year_published": 2017,
-    "rating": 4.7,
-    "author": 6
-  }
-}, {
-  "model": "api.book",
-  "pk": 6,
-  "fields": {
-    "title": "Frankenstein 2",
-    "year_published": 2016,
-    "rating": 2.1,
-    "author": 5
-  }
-}, {
-  "model": "api.book",
-  "pk": 7,
-  "fields": {
-    "title": "Harry Potter and the Deathly Hallows",
-    "year_published": 2014,
-    "rating": 4.9,
-    "author": 7
-  }
-}, {
-  "model": "api.book",
-  "pk": 8,
-  "fields": {
-    "title": "Harry Potter and the Goblet of Fire",
-    "year_published": 2009,
-    "rating": 1.4,
-    "author": 7
-  }
-}, {
-  "model": "api.book",
-  "pk": 9,
-  "fields": {
-    "title": "Harry Potter and the Sorcerer's Stone",
-    "year_published": 2001,
-    "rating": 1.8,
-    "author": 7
-  }
-}, {
-  "model": "api.review",
-  "pk": 1,
-  "fields": {
-    "reviewer": "Mr. Bean",
-    "pub_date": "2017-09-21T20:48:15.249Z",
-    "book": 2,
-    "rating": 3.0,
-    "content": "I love this book so much!! Must buy!"
-  }
-}, {
-  "model": "api.review",
-  "pk": 2,
-  "fields": {
-    "reviewer": "Arthur",
-    "pub_date": "2017-09-21T20:49:04.331Z",
-    "book": 2,
-    "rating": 1.0,
-    "content": "This book sucks! I wish I never spent money on it. "
-  }
-}, {
-  "model": "api.review",
-  "pk": 3,
-  "fields": {
-    "reviewer": "Arthur",
-    "pub_date": "2017-09-21T20:50:27.068Z",
-    "book": 3,
-    "rating": 4.5,
-    "content": "I got this book as a gift from my dad, really enjoyed it!"
-  }
-}]
+]

@@ -89,6 +89,8 @@ def __handle_create_author_post(request):
 		)
 		author.save()
 		return generate_response("author created", True, author)
+	except KeyError as e:
+		return generate_response("missing %s" % e.args[0].strip("'"), False)
 	except Exception as e:
 		return generate_response(str(e), False)
 

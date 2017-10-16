@@ -1,9 +1,26 @@
 from django.db import models
-from django.contrib.auth.models import User
 
-class Author(models.Model):
+
+class User(models.Model):
+	username = models.CharField(max_length=200)
+	password = models.CharField(max_length=200)
 	first_name = models.CharField(max_length=200)
 	last_name = models.CharField(max_length=200)
+
+	def __str__(self):
+		return "%s - %s - %s - %s" % (self.username, 
+			self.password, self.first_name, self.last_name)
+
+
+class Authenticator(models.Model):
+	authenticator = models.IntegerField(primary_key = True)
+	user_id = models.IntegerField()
+	date_created = models.DateTimeField(auto_now_add = True)
+
+
+class Author(models.Model):
+	first_name = models.CharField(max_length = 200)
+	last_name = models.CharField(max_length = 200)
 	age = models.IntegerField()
 
 	def __str__(self):
@@ -11,10 +28,10 @@ class Author(models.Model):
 
 
 class Book(models.Model):
-	title = models.CharField(max_length=200)
+	title = models.CharField(max_length = 200)
 	year_published = models.IntegerField()
 	rating = models.FloatField()
-	author = models.ForeignKey(Author, on_delete=models.CASCADE)
+	author = models.ForeignKey(Author, on_delete = models.CASCADE)
 
 	def __str__(self):
 		return "%s - %s - %s - %s %s" % (self.title, 
@@ -22,12 +39,14 @@ class Book(models.Model):
 
 
 class Review(models.Model):
-	reviewer = models.CharField(max_length=200)
-	pub_date = models.DateTimeField(auto_now_add=True)
+	reviewer = models.ForeignKey(User, on_delete = models.CASCADE)
+	pub_date = models.DateTimeField(auto_now_add = True)
 	book = models.ForeignKey(Book)
-	rating = models.FloatField(default=0)
+	rating = models.FloatField(default = 0)
 	content = models.TextField()
 
 	def __str__(self):
 		return "%s - %s - %s - %s - %s" % (self.reviewer, 
 			self.pub_date, self.book.title, self.rating, self.content)
+
+

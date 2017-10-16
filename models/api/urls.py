@@ -1,9 +1,14 @@
 from django.conf.urls import url
-from api import views, views_author, views_book, views_review
+from api import views, views_author, views_book, views_review, views_user, views_authenticator
 
 app_name = 'api'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+
+    url(r'^user/authenticate$', views_user.authenticate_user, name='authenticate_user'),
+    url(r'^user/create$', views_user.create_user, name='create_user'),
+
+    url(r'^authenticator$', views_authenticator.authenticator, name='authenticator'),
 
     url(r'^author/(?P<author_id>[0-9]+|(all))$', views_author.author, name='author'),
     url(r'^author/create$', views_author.create_author, name='create_author'),

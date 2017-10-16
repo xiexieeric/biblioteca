@@ -97,6 +97,8 @@ def __handle_create_book_post(request):
 		)
 		book.save()
 		return generate_response("book saved", True, book)
+	except KeyError as e:
+		return generate_response("missing %s" % e.args[0].strip("'"), False)
 	except Exception as e:
 		return generate_response(str(e), False)
 
