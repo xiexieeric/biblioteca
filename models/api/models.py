@@ -50,3 +50,14 @@ class Review(models.Model):
 			self.pub_date, self.book.title, self.rating, self.content)
 
 
+class Listing(models.Model):
+	lister = models.ForeignKey(User, on_delete = models.CASCADE)
+	post_date = models.DateTimeField(auto_now_add = True)
+	book = models.ForeignKey(Book)
+	price = models.FloatField(default = 0)
+
+	def __str__(self):
+		return "%s - %s - %s - %s" % (self.lister, 
+			self.post_date, self.book.title, self.price)
+
+

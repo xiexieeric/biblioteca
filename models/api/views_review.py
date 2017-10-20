@@ -76,7 +76,7 @@ def __handle_review_post(request, review_id):
 @csrf_exempt
 def create_review(request):
 	"""
-	Handles the /book/create endpoint for creating an author and adding it to the database.
+	Handles the /review/create endpoint for creating an author and adding it to the database.
 	This currently accepts the preferred method of key-value form data as stated in the 
 	Project 2 description.
 	"""
