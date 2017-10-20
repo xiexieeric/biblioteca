@@ -6,7 +6,7 @@ from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 
-from api.models import Review, Book
+from api.models import User, Review, Book
 
 @csrf_exempt
 def review(request, review_id):
@@ -57,7 +57,8 @@ def __handle_review_post(request, review_id):
 		for key in request.POST:
 			value = request.POST[key]
 			if key == 'reviewer':
-				review.reviewer = value
+				user = User.objects.get(pk=value)
+				review.reviewer = user
 			elif key == 'pub_date':
 				review.pub_date = value
 			elif key == 'book':
@@ -87,7 +88,8 @@ def create_review(request):
 
 def __handle_create_review_post(request):
 	try:
-		reviewer = request.POST['reviewer']
+		user_id = request.POST['reviewer']
+		reviewer = User.objects.get(pk=user_id)
 		book_id = request.POST['book']
 		book = Book.objects.get(pk=book_id)			
 		rating = request.POST['rating']
