@@ -21,4 +21,8 @@ urlpatterns = [
     url(r'^review/(?P<review_id>[0-9]+|(all))$', views_review.review, name='review'),
     url(r'^review/create$', views_review.create_review, name='create_review'),
     url(r'^review/delete/(?P<review_id>[0-9]+)$', views_review.delete_review, name='delete_review'),
+
+    url(r'^listing/(?P<listing_id>[0-9]+|(all))$', views_listing.listing, name='listing'),
+    url(r'^listing/create$', views_listing.create_listing, name='create_listing'),
+    url(r'^listing/delete/(?P<listing_id>[0-9]+)$', views_listing.delete_listing, name='delete_listing'),
 ]

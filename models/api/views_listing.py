@@ -9,7 +9,7 @@ from django.db.models import Q
 from api.models import Listing, Book
 
 @csrf_exempt
-def review(request, listing_id):
+def listing(request, listing_id):
 	"""
 	GET - return the row in the corresponding database table in JSON.
 	POST - be able to update a row in the table given a set of key-value form encoded pairs (PREFERRED, NOT JSON)
@@ -30,7 +30,7 @@ def __handle_listing_get(request, listing_id):
 	else:
 		try:
 			listing = Listing.objects.get(pk=listing_id)
-			return generate_response("listing found", True, review)
+			return generate_response("listing found", True, listing)
 		except:
 			return generate_response("listing not found", False)
 
@@ -64,8 +64,8 @@ def __handle_listing_post(request, listing_id):
 				listing.book = book
 			elif key == 'price':
 				listing.price = value
-		review.save()
-		return generate_response("listing updated", True, review)
+		listing.save()
+		return generate_response("listing updated", True, listing)
 	except:
 		return generate_response("listing not found", False)
 
@@ -106,7 +106,7 @@ def delete_listing(request, listing_id):
 	try:
 		listing = Listing.objects.get(pk=listing_id)
 		listing.delete()
-		return generate_response("listing deleted", True, review)
+		return generate_response("listing deleted", True, listing)
 	except:
 		return generate_response("listing does not exist", False)
 
