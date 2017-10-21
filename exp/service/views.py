@@ -13,6 +13,7 @@ __MODELS_URL = 'http://models-api:8000/api/v1/'
 __BOOK = 'book/'
 __AUTHOR = 'author/'
 __REVIEW = 'review/'
+__USER = 'user/'
 
 def index(request):
 	return HttpResponse('Welcome to the index page for the experience API v1')
@@ -116,6 +117,17 @@ def review(request, review_id):
 		)
 	return JsonResponse(r)
 
+@csrf_exempt
+def signup(request):
+	if request.method == 'POST':
+		r = __make_request(
+			__MODELS_URL + __USER + 'create',
+			data = request.POST,
+			method = 'POST'
+		)
+	return JsonResponse(r)
+
+
 
 def __make_request(url, data = None, method = 'GET'):
 	if data:
@@ -137,3 +149,6 @@ def __generate_response(msg, success, data = None):
 	res["msg"] = msg
 	res["result"] = data
 	return JsonResponse(res)
+
+
+
