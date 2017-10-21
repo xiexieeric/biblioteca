@@ -13,6 +13,7 @@ __MODELS_URL = 'http://models-api:8000/api/v1/'
 __BOOK = 'book/'
 __AUTHOR = 'author/'
 __REVIEW = 'review/'
+__LISTING = 'listing/'
 __USER = 'user/'
 
 def index(request):
@@ -79,6 +80,56 @@ def __get_sorted_book_results(key, count, reverse = True):
 	return [data for (published, data) in sorted_result]
 
 
+#Extend your experience services to have a "create account", "logout", "login" and "create new listing" service.
+
+@csrf_exempt
+def create_account(request):
+	if request.method == 'POST':
+		r = __make_request(
+			__MODELS_URL + __USER + 'create', 
+			data = request.POST, 
+			method = 'POST'
+		)
+		#pass back cookie
+	else:
+		return __generate_response('only POST accepted', False)
+
+
+@csrf_exempt
+def user_login(request):
+	if request.method == 'POST':
+		r = __make_request(
+			__MODELS_URL + __USER + 'authenticate', 
+			data = request.POST, 
+			method = 'POST'
+		)
+		#pass back cookie
+	else:
+		return __generate_response('only POST accepted', False)
+
+
+#IDK IDK IDK 
+@csrf_exempt
+def user_logout(request):
+	if request.method == 'GET':
+		r = __make_request(__MODELS_URL)
+		#flush user by deleting cookie
+	else:
+		return __generate_response('only GET accepted', False)
+
+
+@csrf_exempt
+def create_new_listing(request):
+	#authenticate first
+	if request.method == 'POST':
+		r = __make_request(
+			__MODELS_URL + __LISTING + 'create', 
+			data = request.POST, 
+			method = 'POST'
+		)
+	else:
+		return __generate_response('only POST accepted', False)
+
 @csrf_exempt
 def book(request, book_id): 
 	if request.method == 'GET':
@@ -98,7 +149,7 @@ def author(request, author_id):
 		r = __make_request(__MODELS_URL + __AUTHOR + author_id)
 	elif request.method == 'POST':
 		r = __make_request(
-			__MODELS_URL + __BOOK + author_id, 
+			__MODELS_URL + __AUTHOR + author_id, 
 			data = request.POST, 
 			method = 'POST'
 		)
@@ -111,7 +162,20 @@ def review(request, review_id):
 		r = __make_request(__MODELS_URL + __REVIEW + review_id)
 	elif request.method == 'POST':
 		r = __make_request(
-			__MODELS_URL + __BOOK + review_id, 
+			__MODELS_URL + __REVIEW + review_id, 
+			data = request.POST, 
+			method = 'POST'
+		)
+	return JsonResponse(r)
+
+
+@csrf_exempt
+def listing(request, listing_id): 
+	if request.method == 'GET':
+		r = __make_request(__MODELS_URL + __LISTING + listing_id)
+	elif request.method == 'POST':
+		r = __make_request(
+			__MODELS_URL + __LISTING + listing_id, 
 			data = request.POST, 
 			method = 'POST'
 		)

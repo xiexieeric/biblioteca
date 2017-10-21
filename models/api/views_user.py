@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.hashers import make_password, check_password
 
 from random import randint
 
@@ -27,7 +28,7 @@ def __handle_create_user_post(request):
 		if matching_usernames:
 			return generate_response("username already exists", False)
 
-		password = request.POST['password']
+		password = make_password(request.POST['password'])
 		first_name = request.POST['first_name']
 		last_name = request.POST['last_name']
 		user = User(
