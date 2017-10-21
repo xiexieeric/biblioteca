@@ -1,6 +1,83 @@
 from django.test import TestCase, Client
 from api.models import User, Author, Book, Review, Listing
 
+# For password checking
+from django.contrib.auth import hashers
+
+class UserTestCase(TestCase):
+    def setUp(self):
+        self.user1 = User.objects.create(first_name = 'Stephen', last_name = 'King', username = "stephen", password = hashers.make_password("king"))
+        self.user2 = User.objects.create(first_name = 'Mark', last_name = 'Twain', username = "mark", password = hashers.make_password("twain"))
+        self.user3 = User.objects.create(first_name = 'Ernest', last_name = 'Hemmingway', username = "ernest", password = hashers.make_password("hemmingway"))
+
+
+    def test_create_user(self):
+        response = self.client.post(
+            '/api/v1/user/create', 
+            { 
+                'first_name': 'brandon', 
+                'last_name': 'liu', 
+                'username': 'brandon', 
+                'password': 'liu'
+            }
+        )
+        user = User.objects.get(pk = int(response.json()['result']['pk']))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(user.first_name, 'brandon')
+        self.assertEqual(user.last_name, 'liu')
+        self.assertEqual(user.username, 'brandon')
+        self.assertTrue(hashers.check_password("liu", user.password))
+
+        # check that we can't make another user with existing username
+        response = self.client.post(
+            '/api/v1/user/create', 
+            { 
+                'first_name': 'hi', 
+                'last_name': 'hi', 
+                'username': 'brandon', 
+                'password': 'hi'
+            }
+        )
+        self.assertFalse(response.json()['success'])
+
+    def test_read_user(self):
+        response = self.client.get('/api/v1/user/' + str(self.user1.pk))
+        json = response.json()['result']['fields']
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json['first_name'], 'Stephen')
+        self.assertEqual(json['last_name'], 'King')
+        self.assertEqual(json['username'], "stephen")
+        self.assertTrue(hashers.check_password("king", json['password']))
+
+    def test_update_user(self):
+        response = self.client.post(
+            '/api/v1/user/' + str(self.user2.pk), 
+            {
+                'first_name': 'Jennifer', 
+                'last_name': 'Fang', 
+                'password': "hi"
+            }
+        )
+        user = User.objects.get(pk = self.user2.pk)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(user.first_name, 'Jennifer')
+        self.assertEqual(user.last_name, 'Fang')
+        self.assertTrue(hashers.check_password('hi', user.password))
+
+    def test_delete_user(self):
+        response = self.client.get('/api/v1/user/delete/' + str(self.user3.pk))
+        self.assertEqual(response.status_code, 200)
+        with self.assertRaises(User.DoesNotExist):
+            User.objects.get(pk=self.user3.pk)
+
+    def test_fails_invalid(self):
+        response = self.client.get('/api/v1/user')
+        self.assertEqual(response.status_code, 404)
+
+    def tearDown(self):
+        pass
+
+
 class AuthorTestCase(TestCase):
     def setUp(self):
         pass

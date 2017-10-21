@@ -62,7 +62,7 @@ def __handle_user_post(request, user_id):
 			value = request.POST[key]
 			if key == 'first_name': user.first_name = value
 			elif key == 'last_name': user.last_name = value
-			elif key == 'password': user.password = value
+			elif key == 'password': user.password = hashers.make_password(value)
 		user.save()
 		return generate_response("user updated", True, user)
 	except:
