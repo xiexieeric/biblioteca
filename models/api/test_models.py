@@ -138,70 +138,74 @@ class BookTestCase(TestCase):
 
 class ReviewTestCase(TestCase):
     def setUp(self):
-        pass
+        self.user = User.objects.create(
+            username = 'jennifer', 
+            password = 'fang', 
+            first_name = 'Jennifer', 
+            last_name = 'Fang')
+        self.author = Author.objects.create(
+            first_name = 'Ernest', 
+            last_name = 'Hemmingway', 
+            age = 50)
+        self.book = Book.objects.create(
+            title = 'Old Man and the Sea', 
+            year_published = 1952, 
+            rating = 5.0, 
+            author = self.author)
 
     def test_create_review(self):
-        user = User.objects.create(username = 'jennifer', password = 'fang', first_name = 'Jennifer', last_name = 'Fang')
-        author = Author.objects.create(first_name = 'Ernest', last_name = 'Hemmingway', age = 50)
-        book = Book.objects.create(title = 'Old Man and the Sea', year_published = 1952, rating = 5.0, author = author)
         response = self.client.post(
             '/api/v1/review/create', 
             {
-                'reviewer': user.pk, 
-                'book': book.pk,
+                'reviewer': self.user.pk, 
+                'book': self.book.pk,
                 'rating': 5.0, 
                 'content': 'I liked this book',
             }
         )        
         review = Review.objects.get(pk = int(response.json()['result']['pk']))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(review.reviewer, user)
-        self.assertEqual(review.book, book)
+        self.assertEqual(review.reviewer, self.user)
+        self.assertEqual(review.book, self.book)
         self.assertEqual(review.rating, 5.0)
         self.assertEqual(review.content, 'I liked this book')
 
     def test_read_review(self):
-        user = User.objects.create(username = 'jennifer', password = 'fang', first_name = 'Jennifer', last_name = 'Fang')
-        author = Author.objects.create(first_name = 'Ernest', last_name = 'Hemmingway', age = 50)
-        book = Book.objects.create(title = 'Old Man and the Sea', year_published = 1952, rating = 5.0, author = author)
-        review = Review.objects.create(reviewer = 'Jennifer Fang', book = book, 
-            rating = 4.0, content = 'This book was great!')
+        review = Review.objects.create(
+            reviewer = self.user, 
+            book = self.book, 
+            rating = 4.0, 
+            content = 'This book was great!')
         response = self.client.get('/api/v1/review/' + str(review.pk))
         json = response.json()['result']['fields']
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(json['reviewer'], 'Jennifer Fang')
-        self.assertEqual(json['book'], book.pk)
+        self.assertEqual(json['reviewer'], self.user.pk)
+        self.assertEqual(json['book'], self.book.pk)
         self.assertEqual(json['rating'], 4.0)
         self.assertEqual(json['content'], 'This book was great!')
 
     def test_update_review(self):
-        author = Author.objects.create(first_name = 'Ernest', last_name = 'Hemmingway', age = 50)
-        author2 = Author.objects.create(first_name = 'J.K.', last_name = 'Rowling', age = 55)
-        book = Book.objects.create(title = 'Old Man and the Sea', year_published = 1952, rating = 5.0, author = author)
-        book2 = Book.objects.create(title = 'Harry Potter', year_published = 2000, rating = 5.0, author = author2)
-        review = Review.objects.create(reviewer = 'Brandon Liu', book = book2, 
-            rating = 3.0, content = 'This book was okay.')
+        user2 = User.objects.create(username = 'b', password = 'l', first_name = 'brandon', last_name = 'liu')
+        book2 = Book.objects.create(title = 'Harry Potter', year_published = 2000, rating = 5.0, author = self.author)
+        review = Review.objects.create(reviewer =self.user, book = self.book, rating = 3.0, content = 'This book was okay.')
         response = self.client.post(
             '/api/v1/review/' + str(review.pk), 
             {
-                'reviewer': 'Jennifer Fang', 
-                'book': book.pk,
+                'reviewer': user2.pk, 
+                'book': book2.pk,
                 'rating': 5.0, 
                 'content': 'I loved this book!',
             }
         )
         review = Review.objects.get(pk = review.pk)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(review.reviewer, 'Jennifer Fang')
-        self.assertEqual(review.book, book)
+        self.assertEqual(review.reviewer, user2)
+        self.assertEqual(review.book, book2)
         self.assertEqual(review.rating, 5.0)
         self.assertEqual(review.content, 'I loved this book!')
 
     def test_delete_review(self):
-        author2 = Author.objects.create(first_name = 'J.K.', last_name = 'Rowling', age = 55)
-        book2 = Book.objects.create(title = 'Harry Potter', year_published = 2000, rating = 5.0, author = author2)
-        review = Review.objects.create(reviewer = 'Eric Xie', book = book2, 
-            rating = 3.5, content = 'This book was okay.')
+        review = Review.objects.create(reviewer = self.user, book = self.book, rating = 3.5, content = 'This book was okay.')
         response = self.client.get('/api/v1/review/delete/' + str(review.pk))
         self.assertEqual(response.status_code, 200)
         with self.assertRaises(Review.DoesNotExist):

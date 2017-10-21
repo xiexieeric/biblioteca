@@ -73,9 +73,7 @@ def __handle_listing_post(request, listing_id):
 @csrf_exempt
 def create_listing(request):
 	"""
-	Handles the /listing/create endpoint for creating an author and adding it to the database.
-	This currently accepts the preferred method of key-value form data as stated in the 
-	Project 2 description.
+	Handles the /listing/create endpoint for creating a listing and adding it to the database.
 	"""
 	if request.method == 'POST':
 		return __handle_create_listing_post(request)
@@ -86,7 +84,7 @@ def __handle_create_listing_post(request):
 	try:
 		lister = request.POST['lister']
 		book_id = request.POST['book']
-		book = Book.objects.get(pk=book_id)			
+		book = Book.objects.get(pk=book_id)
 		price = request.POST['price']
 		listing = Listing(
 			lister = lister, 
