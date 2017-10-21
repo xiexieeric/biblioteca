@@ -6,7 +6,7 @@ from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 
-from api.models import Listing, Book
+from api.models import User, Listing, Book
 
 @csrf_exempt
 def listing(request, listing_id):
@@ -56,7 +56,8 @@ def __handle_listing_post(request, listing_id):
 		for key in request.POST:
 			value = request.POST[key]
 			if key == 'lister':
-				listing.lister = value
+				user = User.objects.get(pk=value)
+				listing.lister = user
 			elif key == 'post_date':
 				listing.post_date = value
 			elif key == 'book':
@@ -84,7 +85,8 @@ def create_listing(request):
 
 def __handle_create_listing_post(request):
 	try:
-		lister = request.POST['lister']
+		user_id = request.POST['lister']
+		lister = User.objects.get(pk=user_id)
 		book_id = request.POST['book']
 		book = Book.objects.get(pk=book_id)			
 		price = request.POST['price']

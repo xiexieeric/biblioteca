@@ -164,27 +164,28 @@ class ReviewTestCase(TestCase):
         user = User.objects.create(username = 'jennifer', password = 'fang', first_name = 'Jennifer', last_name = 'Fang')
         author = Author.objects.create(first_name = 'Ernest', last_name = 'Hemmingway', age = 50)
         book = Book.objects.create(title = 'Old Man and the Sea', year_published = 1952, rating = 5.0, author = author)
-        review = Review.objects.create(reviewer = 'Jennifer Fang', book = book, 
+        review = Review.objects.create(reviewer = user, book = book, 
             rating = 4.0, content = 'This book was great!')
         response = self.client.get('/api/v1/review/' + str(review.pk))
         json = response.json()['result']['fields']
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(json['reviewer'], 'Jennifer Fang')
+        self.assertEqual(json['reviewer'], user.pk)
         self.assertEqual(json['book'], book.pk)
         self.assertEqual(json['rating'], 4.0)
         self.assertEqual(json['content'], 'This book was great!')
 
     def test_update_review(self):
+        user = User.objects.create(username = 'jennifer', password = 'fang', first_name = 'Jennifer', last_name = 'Fang')
         author = Author.objects.create(first_name = 'Ernest', last_name = 'Hemmingway', age = 50)
         author2 = Author.objects.create(first_name = 'J.K.', last_name = 'Rowling', age = 55)
         book = Book.objects.create(title = 'Old Man and the Sea', year_published = 1952, rating = 5.0, author = author)
         book2 = Book.objects.create(title = 'Harry Potter', year_published = 2000, rating = 5.0, author = author2)
-        review = Review.objects.create(reviewer = 'Brandon Liu', book = book2, 
+        review = Review.objects.create(reviewer = user, book = book2, 
             rating = 3.0, content = 'This book was okay.')
         response = self.client.post(
             '/api/v1/review/' + str(review.pk), 
             {
-                'reviewer': 'Jennifer Fang', 
+                'reviewer': user.pk, 
                 'book': book.pk,
                 'rating': 5.0, 
                 'content': 'I loved this book!',
@@ -192,15 +193,16 @@ class ReviewTestCase(TestCase):
         )
         review = Review.objects.get(pk = review.pk)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(review.reviewer, 'Jennifer Fang')
+        self.assertEqual(review.reviewer, user)
         self.assertEqual(review.book, book)
         self.assertEqual(review.rating, 5.0)
         self.assertEqual(review.content, 'I loved this book!')
 
     def test_delete_review(self):
+        user = User.objects.create(username = 'jennifer', password = 'fang', first_name = 'Jennifer', last_name = 'Fang')
         author2 = Author.objects.create(first_name = 'J.K.', last_name = 'Rowling', age = 55)
         book2 = Book.objects.create(title = 'Harry Potter', year_published = 2000, rating = 5.0, author = author2)
-        review = Review.objects.create(reviewer = 'Eric Xie', book = book2, 
+        review = Review.objects.create(reviewer = user, book = book2, 
             rating = 3.5, content = 'This book was okay.')
         response = self.client.get('/api/v1/review/delete/' + str(review.pk))
         self.assertEqual(response.status_code, 200)
@@ -221,75 +223,78 @@ class ReviewTestCase(TestCase):
 
 
 
-# class ListingTestCase(TestCase):
-#     def setUp(self):
-#         pass
+class ListingTestCase(TestCase):
+    def setUp(self):
+        pass
 
-#     def test_create_listing(self):
-#         author = Author.objects.create(first_name = 'Ernest', last_name = 'Hemmingway', age = 50)
-#         book = Book.objects.create(title = 'Old Man and the Sea', year_published = 1952, rating = 5.0, author = author)
-#         response = self.client.post(
-#             '/api/v1/listing/create', 
-#             {
-#                 'lister': 'Jennifer Fang', 
-#                 'book': book.pk,
-#                 'price': 12.50, 
-#             }
-#         )        
-#         listing = Listing.objects.get(pk = int(response.json()['result']['pk']))
-#         self.assertEqual(response.status_code, 200)
-#         self.assertEqual(listing.lister, 'Jennifer Fang')
-#         self.assertEqual(listing.book, book)
-#         self.assertEqual(listing.price, 12.50)
+    def test_create_listing(self):
+        user = User.objects.create(username = 'jennifer', password = 'fang', first_name = 'Jennifer', last_name = 'Fang')
+        author = Author.objects.create(first_name = 'Ernest', last_name = 'Hemmingway', age = 50)
+        book = Book.objects.create(title = 'Old Man and the Sea', year_published = 1952, rating = 5.0, author = author)
+        response = self.client.post(
+            '/api/v1/listing/create', 
+            {
+                'lister': user.pk, 
+                'book': book.pk,
+                'price': 12.50, 
+            }
+        )        
+        listing = Listing.objects.get(pk = int(response.json()['result']['pk']))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(listing.lister, user)
+        self.assertEqual(listing.book, book)
+        self.assertEqual(listing.price, 12.50)
 
-#     def test_read_listing(self):
-#         author = Author.objects.create(first_name = 'Ernest', last_name = 'Hemmingway', age = 50)
-#         book = Book.objects.create(title = 'Old Man and the Sea', year_published = 1952, rating = 5.0, author = author)
-#         listing = Listing.objects.create(lister = 'Jennifer Fang', book = book, 
-#             price =  140.00)
-#         response = self.client.get('/api/v1/listing/' + str(listing.pk))
-#         json = response.json()['result']['fields']
-#         self.assertEqual(response.status_code, 200)
-#         self.assertEqual(json['lister'], 'Jennifer Fang')
-#         self.assertEqual(json['book'], book.pk)
-#         self.assertEqual(json['price'], 140.00)
+    def test_read_listing(self):
+        user = User.objects.create(username = 'jennifer', password = 'fang', first_name = 'Jennifer', last_name = 'Fang')
+        author = Author.objects.create(first_name = 'Ernest', last_name = 'Hemmingway', age = 50)
+        book = Book.objects.create(title = 'Old Man and the Sea', year_published = 1952, rating = 5.0, author = author)
+        listing = Listing.objects.create(lister = user, book = book, 
+            price =  140.00)
+        response = self.client.get('/api/v1/listing/' + str(listing.pk))
+        json = response.json()['result']['fields']
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json['lister'], user.pk)
+        self.assertEqual(json['book'], book.pk)
+        self.assertEqual(json['price'], 140.00)
 
-#     def test_update_listing(self):
-#         author = Author.objects.create(first_name = 'Ernest', last_name = 'Hemmingway', age = 50)
-#         author2 = Author.objects.create(first_name = 'J.K.', last_name = 'Rowling', age = 55)
-#         book = Book.objects.create(title = 'Old Man and the Sea', year_published = 1952, rating = 5.0, author = author)
-#         book2 = Book.objects.create(title = 'Harry Potter', year_published = 2000, rating = 5.0, author = author2)
-#         listing = Listing.objects.create(lister = 'Brandon Liu', book = book2, 
-#             price = 3.00)
-#         response = self.client.post(
-#             '/api/v1/listing/' + str(listing.pk), 
-#             {
-#                 'lister': 'Jennifer Fang', 
-#                 'book': book.pk,
-#                 'price': 15.00, 
-#             }
-#         )
-#         listing = Listing.objects.get(pk = listing.pk)
-#         self.assertEqual(response.status_code, 200)
-#         self.assertEqual(listing.lister, 'Jennifer Fang')
-#         self.assertEqual(listing.book, book)
-#         self.assertEqual(listing.price, 15.00)
+    def test_update_listing(self):
+        user = User.objects.create(username = 'jennifer', password = 'fang', first_name = 'Jennifer', last_name = 'Fang')
+        author = Author.objects.create(first_name = 'Ernest', last_name = 'Hemmingway', age = 50)
+        author2 = Author.objects.create(first_name = 'J.K.', last_name = 'Rowling', age = 55)
+        book = Book.objects.create(title = 'Old Man and the Sea', year_published = 1952, rating = 5.0, author = author)
+        book2 = Book.objects.create(title = 'Harry Potter', year_published = 2000, rating = 5.0, author = author2)
+        listing = Listing.objects.create(lister = user, book = book2, 
+            price = 3.00)
+        response = self.client.post(
+            '/api/v1/listing/' + str(listing.pk), 
+            {
+                'lister': user.pk, 
+                'book': book.pk,
+                'price': 15.00, 
+            }
+        )
+        listing = Listing.objects.get(pk = listing.pk)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(listing.lister, user)
+        self.assertEqual(listing.book, book)
+        self.assertEqual(listing.price, 15.00)
 
-#     def test_delete_listing(self):
-#         author2 = Author.objects.create(first_name = 'J.K.', last_name = 'Rowling', age = 55)
-#         book2 = Book.objects.create(title = 'Harry Potter', year_published = 2000, rating = 5.0, author = author2)
-#         listing = Listing.objects.create(lister = 'Eric Xie', book = book2, 
-#             rating = 3.5, content = 'This book was okay.')
-#         response = self.client.get('/api/v1/listing/delete/' + str(listing.pk))
-#         self.assertEqual(response.status_code, 200)
-#         with self.assertRaises(Listing.DoesNotExist):
-#             Listing.objects.get(pk=listing.pk)
+    def test_delete_listing(self):
+        user = User.objects.create(username = 'jennifer', password = 'fang', first_name = 'Jennifer', last_name = 'Fang')
+        author2 = Author.objects.create(first_name = 'J.K.', last_name = 'Rowling', age = 55)
+        book2 = Book.objects.create(title = 'Harry Potter', year_published = 2000, rating = 5.0, author = author2)
+        listing = Listing.objects.create(lister = user, book = book2, price = 15.00)
+        response = self.client.get('/api/v1/listing/delete/' + str(listing.pk))
+        self.assertEqual(response.status_code, 200)
+        with self.assertRaises(Listing.DoesNotExist):
+            Listing.objects.get(pk=listing.pk)
 
-#     def test_fails_invalid(self):
-#         response = self.client.get('/api/v1/listing')
-#         self.assertEqual(response.status_code, 404)
+    def test_fails_invalid(self):
+        response = self.client.get('/api/v1/listing')
+        self.assertEqual(response.status_code, 404)
 
-#     def tearDown(self):
-#         pass
+    def tearDown(self):
+        pass
 
 
