@@ -3,30 +3,30 @@
     "model": "api.user",
     "pk": 1,
     "fields": {
-      "username": "brandon",
-      "password": "liu",
-      "first_name": "Brandon",
-      "last_name": "Liu" 
+        "last_name": "liu",
+        "username": "brandon",
+        "first_name": "brandon",
+        "password": "pbkdf2_sha256$30000$Dctgrqc7r3i2$dS5+4t7f1QPuFA/+jwrooaUuZs6LuJVh7afW7eR66Dc="
     }
   },
   {
     "model": "api.user",
     "pk": 2,
     "fields": {
-      "username": "jennifer",
-      "password": "fang",
-      "first_name": "Jennifer",
-      "last_name": "Fang" 
+        "last_name": "fang",
+        "username": "jennifer",
+        "first_name": "jennifer",
+        "password": "pbkdf2_sha256$30000$v8noFT6lIpfQ$Pj/rkwIWhwawFu6dJhV/61U3cxRYtU+eNa/K5sN3B3A="
     }
   },
   {
     "model": "api.user",
     "pk": 3,
     "fields": {
-      "username": "eric",
-      "password": "xie",
-      "first_name": "Eric",
-      "last_name": "Xie" 
+        "last_name": "xie",
+        "username": "eric",
+        "first_name": "eric",
+        "password": "pbkdf2_sha256$30000$lOhlbf8LJIkc$fVZokMKucwiXPzZJVB0akqMIRcuvRcRQqYmB4Il+WDM="
     }
   },
   {
