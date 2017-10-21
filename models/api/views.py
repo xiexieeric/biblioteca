@@ -6,7 +6,9 @@ from django.views.decorators.csrf import csrf_exempt
 from json import loads, dumps
 from django.core import serializers
 
-
+"""
+Contains base functions common to all views.
+"""
 def index(request):
 	return HttpResponse('Welcome to the index page for API v1')
 

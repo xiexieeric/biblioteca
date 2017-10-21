@@ -67,14 +67,18 @@ def get_recent_books(request, count):
 
 
 def __get_sorted_book_results(key, count, reverse = True):
+	"""
+	Utility function for sorting books by date published and by rating
+	"""
 	r = __make_request(__MODELS_URL + __BOOK + 'all')
 	get_result = r['result']
 	sorted_result = []
 	for book in get_result:
+		# record the fields plus object's pk
 		data = book['fields']
 		data['pk'] = book['pk']
-		index = data[key]
-		sorted_result.append((float(index), data))
+		sort_index = data[key]
+		sorted_result.append((float(sort_index), data))
 	sorted_result = sorted(sorted_result, key = lambda x: x[0], reverse = reverse)
 	sorted_result = sorted_result[0:int(count)]
 	return [data for (published, data) in sorted_result]
@@ -129,12 +133,6 @@ def create_new_listing(request):
 		)
 	else:
 		return __generate_response('only POST accepted', False)
-
-
-
-
-
-
 
 
 
