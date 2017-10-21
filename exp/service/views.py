@@ -135,7 +135,6 @@ def create_new_listing(request):
 		return __generate_response('only POST accepted', False)
 
 
-
 @csrf_exempt
 def book(request, book_id): 
 	if request.method == 'GET':
@@ -187,6 +186,17 @@ def listing(request, listing_id):
 		)
 	return JsonResponse(r)
 
+@csrf_exempt
+def signup(request):
+	if request.method == 'POST':
+		r = __make_request(
+			__MODELS_URL + __USER + 'create',
+			data = request.POST,
+			method = 'POST'
+		)
+	return JsonResponse(r)
+
+
 
 def __make_request(url, data = None, method = 'GET'):
 	if data:
@@ -208,3 +218,6 @@ def __generate_response(msg, success, data = None):
 	res["msg"] = msg
 	res["result"] = data
 	return JsonResponse(res)
+
+
+

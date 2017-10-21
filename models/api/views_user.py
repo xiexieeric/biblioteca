@@ -77,7 +77,8 @@ def create_user(request):
 	"""
 	if request.method == 'POST': 
 		return __handle_create_user_post(request)
-	return generate_response("only POST requests are allowed", False)
+	else:
+		return generate_response("only POST requests are allowed", False)
 
 
 def __handle_create_user_post(request):
