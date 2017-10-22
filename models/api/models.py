@@ -13,10 +13,13 @@ class User(models.Model):
 
 
 class Authenticator(models.Model):
-	authenticator = models.IntegerField(primary_key = True)
+	authenticator = models.CharField(primary_key = True, max_length=200)
 	user_id = models.IntegerField()
 	date_created = models.DateTimeField(auto_now_add = True)
 
+	def __str__(self):
+		return "%s - %s - %s" % (self.authenticator, 
+			self.user_id, self.date_created)
 
 class Author(models.Model):
 	first_name = models.CharField(max_length = 200)

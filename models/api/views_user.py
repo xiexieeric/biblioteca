@@ -62,7 +62,7 @@ def __handle_user_post(request, user_id):
 			value = request.POST[key]
 			if key == 'first_name': user.first_name = value
 			elif key == 'last_name': user.last_name = value
-			elif key == 'password': user.password = value
+			elif key == 'password': user.password = hashers.make_password(value)
 		user.save()
 		return generate_response("user updated", True, user)
 	except:
@@ -125,7 +125,7 @@ def __handle_authenticate_user_post(request):
 		result = User.objects.get(username = username)
 		correct_password = hashers.check_password(password, result.password)
 		if correct_password:
-			return generate_response("user authenticated", True)
+			return generate_response("user authenticated", True, result)
 		else:
 			return generate_response("incorrect username or password", False)
 	except Exception as e:

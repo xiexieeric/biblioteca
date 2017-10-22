@@ -6,7 +6,10 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
 
     url(r'^user/authenticate$', views_user.authenticate_user, name='authenticate_user'),
-    url(r'^authenticator/(?P<authenticator_id>[0-9]+)$', views_authenticator.authenticator, name='authenticator'),
+
+    url(r'^authenticator/(?P<authenticator_id>[0-9a-z]+|(all))$', views_authenticator.authenticator, name='authenticator'),
+    url(r'^authenticator/create$', views_authenticator.create_authenticator, name='create_authenticator'),
+    url(r'^authenticator/delete/(?P<authenticator_id>[0-9a-z]+)$', views_authenticator.delete_authenticator, name='delete_authenticator'),
 
     url(r'^user/(?P<user_id>[0-9]+|(all))$', views_user.user, name='user'),
     url(r'^user/create$', views_user.create_user, name='create_user'),
