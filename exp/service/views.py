@@ -196,6 +196,15 @@ def signup(request):
 		)
 	return JsonResponse(r)
 
+@csrf_exempt
+def login(request):
+	if request.method == 'POST':
+		r = __make_request(
+			__MODELS_URL + __USER + 'create',
+			data = request.POST,
+			method = 'POST'
+		)
+	return JsonResponse(r)
 
 
 def __make_request(url, data = None, method = 'GET'):

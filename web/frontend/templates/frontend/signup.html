@@ -5,7 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-    {{ msg }}
+    {% if msg %}
+        {{ msg }}
+    {% endif %}
     <form action="/signup/" method="POST">
         {% csrf_token %}
         {{ form }}
