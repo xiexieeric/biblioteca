@@ -15,6 +15,7 @@ __AUTHOR = 'author/'
 __REVIEW = 'review/'
 __LISTING = 'listing/'
 __USER = 'user/'
+__AUTHENTICATOR = 'authenticator/'
 
 def index(request):
 	return HttpResponse('Welcome to the index page for the experience API v1')
@@ -94,32 +95,57 @@ def create_account(request):
 			data = request.POST, 
 			method = 'POST'
 		)
-		#pass back cookie
 	else:
 		return __generate_response('only POST accepted', False)
 
 
 @csrf_exempt
 def user_login(request):
+	"""
+	Logs a user in. Must not be able to log in a user if the user is already logged in AKA if authenticator for user already exists.
+	Requires a user_id and plaintext password.
+	"""
 	if request.method == 'POST':
-		r = __make_request(
+		auth_response = __make_request(
 			__MODELS_URL + __USER + 'authenticate', 
 			data = request.POST, 
 			method = 'POST'
 		)
-		#pass back cookie
+		if auth_response['success']:
+
+			token_response = __make_request(
+					__MODELS_URL + __AUTHENTICATOR + 'create',
+					data = {
+						'user_id': auth_response['result']['pk']
+					},
+					method = 'POST'
+				)
+			token_response['msg'] = 'user authenticated successfully, returning authenticator token'
+			return JsonResponse(token_response)
+
+		else:
+			return __generate_response('not able to authenticate', False)
 	else:
 		return __generate_response('only POST accepted', False)
 
 
-#IDK IDK IDK 
 @csrf_exempt
 def user_logout(request):
-	if request.method == 'GET':
-		r = __make_request(__MODELS_URL)
-		#flush user by deleting cookie
+	"""
+	Requires posting the authenticator token so that the authenticator can be deleted.
+	"""
+	if request.method == 'POST':
+		try:
+			r = __make_request(__MODELS_URL + __AUTHENTICATOR + 'delete/' + request.POST['authenticator'])
+			if r['success']:
+				return __generate_response('user logged out successfully', True)
+			else:
+				return __generate_response('invalid token', False)
+		except Exception as e:
+			return __generate_response(str(e), False)
+
 	else:
-		return __generate_response('only GET accepted', False)
+		return __generate_response('only POST accepted', False)
 
 
 @csrf_exempt
@@ -135,70 +161,134 @@ def create_new_listing(request):
 		return __generate_response('only POST accepted', False)
 
 
+
+# Default model endpoints --------------------------------------------------
+
 @csrf_exempt
 def book(request, book_id): 
+	"""
+	Mirror of model book endpoint
+	"""
 	if request.method == 'GET':
-		r = __make_request(__MODELS_URL + __BOOK + book_id)
+		if len(request.GET) > 0:
+			url = __MODELS_URL + __BOOK + book_id + '?' + parse.urlencode(request.GET)
+		else: 
+			url = __MODELS_URL + __BOOK + book_id
+		r = __make_request(url)
 	elif request.method == 'POST':
 		r = __make_request(
-			__MODELS_URL + __BOOK + book_id, 
-			data = request.POST, 
-			method = 'POST'
-		)
+				__MODELS_URL + __BOOK + book_id, 
+				data = request.POST, 
+				method = 'POST'
+			)
 	return JsonResponse(r)
 
 
 @csrf_exempt
 def author(request, author_id): 
+	"""
+	Mirror of model author endpoint
+	"""
 	if request.method == 'GET':
-		r = __make_request(__MODELS_URL + __AUTHOR + author_id)
+		if len(request.GET) > 0:
+			url = __MODELS_URL + __AUTHOR + author_id + '?' + parse.urlencode(request.GET)
+		else: 
+			url = __MODELS_URL + __AUTHOR + author_id
+		r = __make_request(url)
 	elif request.method == 'POST':
 		r = __make_request(
-			__MODELS_URL + __AUTHOR + author_id, 
-			data = request.POST, 
-			method = 'POST'
-		)
+				__MODELS_URL + __AUTHOR + author_id, 
+				data = request.POST, 
+				method = 'POST'
+			)
 	return JsonResponse(r)
 
 
 @csrf_exempt
 def review(request, review_id): 
+	"""
+	Mirror of model review endpoint
+	"""
 	if request.method == 'GET':
-		r = __make_request(__MODELS_URL + __REVIEW + review_id)
+		if len(request.GET) > 0:
+			url = __MODELS_URL + __REVIEW + review_id + '?' + parse.urlencode(request.GET)
+		else: 
+			url = __MODELS_URL + __REVIEW + review_id
+		r = __make_request(url)
 	elif request.method == 'POST':
 		r = __make_request(
-			__MODELS_URL + __REVIEW + review_id, 
-			data = request.POST, 
-			method = 'POST'
-		)
+				__MODELS_URL + __REVIEW + review_id, 
+				data = request.POST, 
+				method = 'POST'
+			)
 	return JsonResponse(r)
 
 
 @csrf_exempt
 def listing(request, listing_id): 
+	"""
+	Mirror of model listing endpoint
+	"""
 	if request.method == 'GET':
-		r = __make_request(__MODELS_URL + __LISTING + listing_id)
+		if len(request.GET) > 0:
+			url = __MODELS_URL + __LISTING + listing_id + '?' + parse.urlencode(request.GET)
+		else: 
+			url = __MODELS_URL + __LISTING + listing_id
+		r = __make_request(url)
 	elif request.method == 'POST':
 		r = __make_request(
-			__MODELS_URL + __LISTING + listing_id, 
-			data = request.POST, 
-			method = 'POST'
-		)
+				__MODELS_URL + __LISTING + listing_id, 
+				data = request.POST, 
+				method = 'POST'
+			)
 	return JsonResponse(r)
 
+
 @csrf_exempt
-def signup(request):
-	if request.method == 'POST':
+def user(request, user_id): 
+	"""
+	Mirror of model user endpoint
+	"""
+	if request.method == 'GET':
+		if len(request.GET) > 0:
+			url = __MODELS_URL + __USER + user_id + '?' + parse.urlencode(request.GET)
+		else: 
+			url = __MODELS_URL + __USER + user_id
+		r = __make_request(url)
+	elif request.method == 'POST':
 		r = __make_request(
-			__MODELS_URL + __USER + 'create',
-			data = request.POST,
-			method = 'POST'
-		)
+				__MODELS_URL + __USER + user_id, 
+				data = request.POST, 
+				method = 'POST'
+			)
+	return JsonResponse(r)
+
+
+@csrf_exempt
+def listing(request, listing_id): 
+	"""
+	Mirror of model lisintg endpoint
+	"""
+	if request.method == 'GET':
+		if len(request.GET) > 0:
+			url = __MODELS_URL + __LISTING + listing_id + '?' + parse.urlencode(request.GET)
+		else: 
+			url = __MODELS_URL + __LISTING + listing_id
+		r = __make_request(url)
+	elif request.method == 'POST':
+		r = __make_request(
+				__MODELS_URL + __LISTING + listing_id, 
+				data = request.POST, 
+				method = 'POST'
+			)
 	return JsonResponse(r)
 
 
 
 def __make_request(url, data = None, method = 'GET'):
+	""" 
+	returns loaded json
+	"""
 	if data:
 		post_encoded = parse.urlencode(data).encode('utf-8')
 		req = requests.Request(
@@ -213,6 +303,9 @@ def __make_request(url, data = None, method = 'GET'):
 
 
 def __generate_response(msg, success, data = None):
+	"""
+	loads the json data
+	"""
 	res = {}
 	res["success"] = success
 	res["msg"] = msg

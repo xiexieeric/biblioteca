@@ -6,8 +6,11 @@ from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
 
-from random import randint
+import hmac, os
 
+from models import settings
+
+@csrf_exempt
 def authenticator(request, authenticator_id):
 	"""
 	Lookup an authenticator with its pk.
@@ -19,12 +22,19 @@ def authenticator(request, authenticator_id):
 	
 
 def __handle_authenticator_get(request, authenticator_id):
-	try:
-		authenticator = Authenticator.objects.get(pk=authenticator_id)
-		return generate_response("authenticator found", True, authenticator)
-	except:
-		return generate_response("authenticator not found", False)
+	if authenticator_id == 'all':
+		result = Authenticator.objects.all()
+		if len(result) == 0: 
+			return generate_response("no queries matched filters", True, payload = {"result": []})
+		else: 
+			return generate_response("found results", True, obj_list = list(result))
 
+	else:
+		try:
+			authenticator = Authenticator.objects.get(pk=authenticator_id)
+			return generate_response("authenticator found", True, authenticator)
+		except:
+			return generate_response("authenticator not found", False)
 
 
 @csrf_exempt
@@ -49,8 +59,29 @@ def __handle_create_authenticator_post(request):
 
 
 def __get_random_authenticator(user_id):
-	pk = randint(1, 10000000)
+	pk = __generate_random_string()
 	while Authenticator.objects.filter(authenticator = pk).exists():
-		pk = randint(1, 10000000)
+		pk = __generate_random_string()
 	return Authenticator(authenticator = pk, user_id = user_id)
+
+def __generate_random_string():
+	return hmac.new(
+			key = settings.SECRET_KEY.encode('utf-8'),
+			msg = os.urandom(32),
+			digestmod = 'sha256'
+		).hexdigest()
+
+@csrf_exempt
+def delete_authenticator(request, authenticator_id):
+	"""
+	Delete authenticator with the specified primary key
+	"""
+	try:
+		authenticator = Authenticator.objects.get(pk=authenticator_id)
+		authenticator.delete()
+		return generate_response("authenticator deleted", True, authenticator)
+	except:
+		return generate_response("authenticator not found", False)
+
+
 

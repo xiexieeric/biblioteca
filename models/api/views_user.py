@@ -125,7 +125,7 @@ def __handle_authenticate_user_post(request):
 		result = User.objects.get(username = username)
 		correct_password = hashers.check_password(password, result.password)
 		if correct_password:
-			return generate_response("user authenticated", True)
+			return generate_response("user authenticated", True, result)
 		else:
 			return generate_response("incorrect username or password", False)
 	except Exception as e:

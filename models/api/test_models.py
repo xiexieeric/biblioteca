@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from api.models import User, Author, Book, Review, Listing
+from api.models import User, Author, Book, Review, Listing, Authenticator
 
 # For password checking
 from django.contrib.auth import hashers
@@ -76,6 +76,44 @@ class UserTestCase(TestCase):
 
     def tearDown(self):
         pass
+
+
+class AuthenticatorTestCase(TestCase):
+    def setUp(self):
+        self.user1 = User.objects.create(first_name = 'Stephen', last_name = 'King', username = "stephen", password = hashers.make_password("king"))
+        self.authenticator1 = Authenticator.objects.create(authenticator = "1", user_id = 1)
+        self.authenticator2 = Authenticator.objects.create(authenticator = "2", user_id = 1)
+
+    def test_create_authenticator(self):
+        response = self.client.post(
+            '/api/v1/authenticator/create', 
+            { 
+                'user_id': self.user1.pk, 
+            }
+        )
+        authenticator = Authenticator.objects.get(pk = response.json()['result']['pk'])
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(authenticator.user_id, self.user1.pk)
+
+    def test_read_authenticator(self):
+        response = self.client.get('/api/v1/authenticator/' + str(self.authenticator1.pk))
+        json = response.json()['result']['fields']
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json['user_id'], 1)
+
+    def test_delete_authenticator(self):
+        response = self.client.get('/api/v1/authenticator/delete/' + str(self.authenticator2.pk))
+        self.assertEqual(response.status_code, 200)
+        with self.assertRaises(Authenticator.DoesNotExist):
+            Authenticator.objects.get(pk=self.authenticator2.pk)
+
+    def test_fails_invalid(self):
+        response = self.client.get('/api/v1/authenticator')
+        self.assertEqual(response.status_code, 404)
+
+    def tearDown(self):
+        pass
+
 
 
 class AuthorTestCase(TestCase):

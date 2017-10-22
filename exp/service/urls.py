@@ -12,6 +12,10 @@ urlpatterns = [
     url(r'^book/(?P<book_id>[0-9]+|(all))$', views.book, name='book'),
     url(r'^author/(?P<author_id>[0-9]+|(all))$', views.author, name='author'),
     url(r'^review/(?P<review_id>[0-9]+|(all))$', views.review, name='review'),
-    
-    url(r'^signup', views.signup, name='signup'),
+    url(r'^listing/(?P<listing_id>[0-9]+|(all))$', views.review, name='listing'),
+    url(r'^user/(?P<user_id>[0-9]+|(all))$', views.review, name='user'),
+
+    url(r'^signup', views.create_account, name='signup'),
+    url(r'^login', views.user_login, name='login'),
+    url(r'^logout', views.user_logout, name='logout'),
 ]
