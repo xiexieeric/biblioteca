@@ -150,13 +150,25 @@ def user_logout(request):
 
 @csrf_exempt
 def create_new_listing(request):
-	#authenticate first
+	"""
+	expects params for creating the new listing as well as the auth token 'authenticator'
+	authenticates using the authenticator first
+	"""
 	if request.method == 'POST':
-		r = __make_request(
-			__MODELS_URL + __LISTING + 'create', 
-			data = request.POST, 
-			method = 'POST'
-		)
+		if request.POST['authenticator'] == 'all':
+			return __generate_response('invalid authenticator token', False)
+		auth_response = __make_request(
+				__MODELS_URL + __AUTHENTICATOR + request.POST['authenticator']
+			)
+		if auth_response['success']:
+			r =  __make_request(
+					__MODELS_URL + __LISTING + 'create', 
+					data = request.POST, 
+					method = 'POST'
+				)
+			return JsonResponse(r)
+		else:
+			return __generate_response('invalid authenticator token', False)
 	else:
 		return __generate_response('only POST accepted', False)
 
