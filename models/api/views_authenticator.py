@@ -18,7 +18,7 @@ def authenticator(request, authenticator_id):
 	"""
 	if request.method == 'GET':
 		return __handle_authenticator_get(request, authenticator_id)
-	return generate_response("only GET requests are allowed", False)
+	return generate_response("authenticator: only GET requests are allowed", False)
 	
 
 def __handle_authenticator_get(request, authenticator_id):
@@ -45,7 +45,7 @@ def create_authenticator(request):
 	"""
 	if request.method == 'POST': 
 		return __handle_create_authenticator_post(request)
-	return generate_response("only POST requests are allowed", False)
+	return generate_response("create_authenticator: only POST requests are allowed", False)
 
 
 def __handle_create_authenticator_post(request):

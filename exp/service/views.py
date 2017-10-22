@@ -106,13 +106,13 @@ def user_login(request):
 	Requires a user_id and plaintext password.
 	"""
 	if request.method == 'POST':
+		# get user id from login
 		auth_response = __make_request(
 			__MODELS_URL + __USER + 'authenticate', 
 			data = request.POST, 
 			method = 'POST'
 		)
 		if auth_response['success']:
-
 			token_response = __make_request(
 					__MODELS_URL + __AUTHENTICATOR + 'create',
 					data = {
@@ -124,9 +124,9 @@ def user_login(request):
 			return JsonResponse(token_response)
 
 		else:
-			return __generate_response('not able to authenticate', False)
+			return __generate_response('user_login - not able to authenticate', False)
 	else:
-		return __generate_response('only POST accepted', False)
+		return __generate_response('user_login - only POST accepted', False)
 
 
 @csrf_exempt
