@@ -12,13 +12,16 @@ def index(request):
 	req = urllib.request.Request(__EXP_URL+'home')
 	resp_json = urllib.request.urlopen(req).read().decode('utf-8')
 	resp = json.loads(resp_json)
-
+	if request.COOKIES.get('auth'):
+		resp['isLoggedIn'] = True
 	return render(request, 'frontend/index.html', resp)
 
 def book_detail(request, book_id):
 	req = urllib.request.Request(__EXP_URL +'book/'+book_id)
 	resp_json = urllib.request.urlopen(req).read().decode('utf-8')
 	resp = json.loads(resp_json)
+	if request.COOKIES.get('auth'):
+		resp['isLoggedIn'] = True
 	if resp["success"] == True:
 		context = {
 			"title": resp["result"]["fields"]["title"],
@@ -51,10 +54,11 @@ def signup(request):
 			post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
 			req = urllib.request.Request(__EXP_URL+'signup', data=post_encoded, method='POST')
 			resp_json = urllib.request.urlopen(req).read().decode('utf-8')
-			if resp_json['success'] == True:
+			resp_json = json.loads(resp_json)
+			if resp_json["success"] == 'true':
 				return HttpResponseRedirect('/index')
 			else:
-				return render(request, 'frontend/signup.html', {'form': form, 'msg': "Error occured",})
+				return render(request, 'frontend/signup.html', {'form': form, 'msg': resp_json['msg'],})
 	else:
 		form = SignupForm()
 	return render(request, 'frontend/signup.html', {'form': form})
@@ -63,7 +67,26 @@ def login(request):
 	if request.method == 'POST':
 		form = LoginForm(request.POST)
 		if form.is_valid():
-			return
+			post_data = {
+				'username': form.cleaned_data['username'],
+				'password': form.cleaned_data['password'],
+			}
+			post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
+			req = urllib.request.Request(__EXP_URL+'signup', data=post_encoded, method='POST')
+			resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+			resp_json = json.loads(resp_json)
+			if resp_json["success"] == 'true':
+				return HttpResponseRedirect('/index')
+			else:
+				return render(request, 'frontend/signup.html', {'form': form, 'msg': resp_json['msg'],})
 	else:
 		form = LoginForm()
 	return render(request, 'frontend/signup.html', {'form': form})
+
+def logout(request):
+	if request.method == 'GET':
+		response = HttpResponseRedirect('/index')
+		response.delete_cookie('auth')
+		return response
+
+
