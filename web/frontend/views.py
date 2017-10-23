@@ -101,6 +101,8 @@ def signup(request):
 	return render(request, 'frontend/signup.html', {'form': form})
 
 def login(request):
+	if request.COOKIES.get("auth"):
+		return index(request, {"msg": "You're already logged in!"})
 	if request.method == 'POST':
 		form = LoginForm(request.POST)
 		if request.COOKIES.get('auth'):
