@@ -63,6 +63,7 @@ def __handle_listing_post(request, listing_id):
 			elif key == 'book':
 				book = Book.objects.get(pk=value)	
 				listing.book = book
+				listing.book_title = book.title
 			elif key == 'price':
 				listing.price = value
 		listing.save()
@@ -92,6 +93,7 @@ def __handle_create_listing_post(request):
 			lister = lister, 
 			book = book,
 			price = price,
+			book_title = book.title,
 		)
 		listing.save()
 		return generate_response("listing saved", True, listing)

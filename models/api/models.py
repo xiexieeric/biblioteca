@@ -57,6 +57,7 @@ class Listing(models.Model):
 	lister = models.ForeignKey(User, on_delete = models.CASCADE)
 	post_date = models.DateTimeField(auto_now_add = True)
 	book = models.ForeignKey(Book)
+	book_title = models.CharField(max_length=200, default="")
 	price = models.FloatField(default = 0)
 
 	def __str__(self):

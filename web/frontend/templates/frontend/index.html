@@ -37,11 +37,17 @@
                 </li>
                 {% if isLoggedIn %}
                     <li class="nav-item active">
+                        <a class="nav-link" href="/create/book/">Create Listing</a>
+                    </li>
+                    <li class="nav-item active">
                         <a class="nav-link" href="/logout/">Log Out</a>
                     </li>
                 {% else %}
                     <li class="nav-item active">
                         <a class="nav-link" href="/login/">Log In</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/signup/">Sign Up</a>
                     </li>
                 {% endif %}
             </ul>
@@ -51,6 +57,20 @@
 
 <!-- Page Content -->
 <div class="container">
+    {{ msg }}
+    <div class="row">
+        <div class="Listings">
+            <h2>Current Listings</h2>
+            {% for listing in result.recent_listings %}
+                <div>
+                    <p>
+                        <span>{{listing.book_title}}</span>
+                    </p>
+                    <p>${{listing.price}}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
     <div class="row">
         <div class="HighestRated">
             <h2>Highest Rated</h2>

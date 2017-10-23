@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Biblioteca - Sign Up</title>
+    <title>Biblioteca - Create Book Listing</title>
 </head>
 <body>
     {% if msg %}
         {{ msg }}
     {% endif %}
-    <form action="/signup/" method="POST">
+    <form action="/create/book/" method="POST">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Submit"/>

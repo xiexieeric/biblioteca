@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
 
 from json import loads, dumps
 from django.core import serializers
@@ -26,7 +27,8 @@ def home(request):
 	if request.method == 'GET':
 		result = {
 			'top_books': __get_sorted_book_results('rating', 10),
-			'recent_books': __get_sorted_book_results('year_published', 10)
+			'recent_books': __get_sorted_book_results('year_published', 10),
+			'recent_listings': __get_sorted_listing_results('post_date', 10)
 		}
 		return __generate_response('home page data', True, result)
 	else:
@@ -66,6 +68,22 @@ def get_recent_books(request, count):
 	else:
 		return __generate_response('only GET accepted', False)
 
+@csrf_exempt
+def get_recent_listings(request, count):
+	"""
+	count - int representing number of results to return. If greater than the size of the db, returns db.
+	"""
+	if request.method == 'GET':
+		try:
+			result = __get_sorted_listing_results('post_date', count)
+			return __generate_response(count, True, result)
+
+		except Exception as e:	
+			return __generate_response(str(e), False)
+
+	else:
+		return __generate_response('only GET accepted', False)
+
 
 def __get_sorted_book_results(key, count, reverse = True):
 	"""
@@ -84,6 +102,22 @@ def __get_sorted_book_results(key, count, reverse = True):
 	sorted_result = sorted_result[0:int(count)]
 	return [data for (published, data) in sorted_result]
 
+def __get_sorted_listing_results(key, count, reverse = True):
+	"""
+	Utility function for sorting books by date published and by rating
+	"""
+	r = __make_request(__MODELS_URL + __LISTING + 'all')
+	get_result = r['result']
+	sorted_result = []
+	for listing in get_result:
+		# record the fields plus object's pk
+		data = listing['fields']
+		data['pk'] = listing['pk']
+		sort_index = data[key]
+		sorted_result.append((sort_index, data))
+	sorted_result = sorted_result[0:int(count)]
+	return [data for (published, data) in sorted_result]
+
 
 #Extend your experience services to have a "create account", "logout", "login" and "create new listing" service.
 
@@ -95,6 +129,7 @@ def create_account(request):
 			data = request.POST, 
 			method = 'POST'
 		)
+		return JsonResponse(r)
 	else:
 		return __generate_response('only POST accepted', False)
 
@@ -290,6 +325,25 @@ def listing(request, listing_id):
 	elif request.method == 'POST':
 		r = __make_request(
 				__MODELS_URL + __LISTING + listing_id, 
+				data = request.POST, 
+				method = 'POST'
+			)
+	return JsonResponse(r)
+
+@csrf_exempt
+def authenticator(request, auth_id): 
+	"""
+	Mirror of model authenticator endpoint
+	"""
+	if request.method == 'GET':
+		if len(request.GET) > 0:
+			url = __MODELS_URL + __AUTHENTICATOR + auth_id + '?' + parse.urlencode(request.GET)
+		else: 
+			url = __MODELS_URL + __AUTHENTICATOR + auth_id
+		r = __make_request(url)
+	elif request.method == 'POST':
+		r = __make_request(
+				__MODELS_URL + __AUTHENTICATOR + auth_id, 
 				data = request.POST, 
 				method = 'POST'
 			)

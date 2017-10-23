@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^review/(?P<review_id>[0-9]+|(all))$', views.review, name='review'),
     url(r'^listing/(?P<listing_id>[0-9]+|(all))$', views.listing, name='listing'),
     url(r'^user/(?P<user_id>[0-9]+|(all))$', views.user, name='user'),
+    url(r'^authenticator/(?P<auth_id>[0-9a-z]+|(all))$', views.authenticator, name='authenticator'),
 
     url(r'^listing/create$', views.create_new_listing, name='create_listing'),
 
