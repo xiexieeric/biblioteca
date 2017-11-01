@@ -61,10 +61,28 @@ Jennifer Fang, Brandon Liu, Eric Xie
 
     1. User can successfully register with their chosen username and password; error occurs if username is already taken.
     2. Success when user tries to login with their correct registered username and password.
-    3. Failure when user triest to login with an incorrect username or incorrect password; graceful error message is shown.
+    3. Failure when user tries to login with an incorrect username or incorrect password; graceful error message is shown.
     4. User stays logged in through storing the authenticator as an HTTP cookie that is returned from logging in.
     5. When user goes to the logout page and logs out, their cookie is deleted and a success message is returned.
     6. If user tries to access the site after logging out, site prompts them to log back in.
+
+8. As a user, I can search listings by author of book, title of book, and username of the lister and view search results on a page.
+
+    Test cases:
+
+    1. Searching by any field returns only results that match the keywords of that field.
+    2. Invalid search queries fail gracefully.  
+
+9. As a user, I can create a listing and the creation is only successful if I am authenticated.
+
+    Test cases:
+
+    1. Creating a listing without valid input for all fields is unsuccessful.
+    2. Creating a listing when authenticated is successful.
+    3. Creating a listing when logged out or unauthenticated is unsuccessful.
+ 
+
+
 
 
 
