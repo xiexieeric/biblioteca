@@ -319,7 +319,7 @@ def user(request, user_id):
 @csrf_exempt
 def listing(request, listing_id): 
 	"""
-	Mirror of model lisintg endpoint
+	Mirror of model listing endpoint
 	"""
 	if request.method == 'GET':
 		if len(request.GET) > 0:
@@ -379,7 +379,7 @@ def __make_request(url, data = None, method = 'GET'):
 	else:
 		req = requests.Request(url)
 	resp_json = requests.urlopen(req).read().decode('utf-8')
-	return loads(resp_json)
+	return json.loads(resp_json)
 
 
 def __generate_response(msg, success, data = None):
