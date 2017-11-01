@@ -3,9 +3,11 @@ from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
+from kafka import KafkaProducer
 
-from json import loads, dumps
+import json
 from django.core import serializers
+from kafka import KafkaProducer
 
 import urllib.request as requests
 import urllib.parse as parse
@@ -201,6 +203,9 @@ def create_new_listing(request):
 					data = request.POST, 
 					method = 'POST'
 				)
+			if r['success']:
+				producer = KafkaProducer(bootstrap_servers='kafka:9092')
+				producer.send('new-listing-topic', json.dumps(r['fields']).encode('utf-8'))
 			return JsonResponse(r)
 		else:
 			return __generate_response('invalid authenticator token', False)

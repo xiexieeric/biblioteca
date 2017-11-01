@@ -15,10 +15,13 @@ es:
 batch:
     image: tp33/django
     container_name: batch
+    volumes:
+        - .:/app
     links:
         - kafka:kafka
         - es:es
-    
+    command: bash -c "cd batch && python app.py"
+
 models:
     image: tp33/django
     container_name: models
@@ -35,6 +38,8 @@ exp:
     container_name: exp
     links:
         - models:models-api
+        - kafka:kafka
+        - es:es
     volumes:
         - .:/app
     ports:
