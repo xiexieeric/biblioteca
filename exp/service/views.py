@@ -217,6 +217,7 @@ def create_new_listing(request):
 
 
 
+
 # Default model endpoints --------------------------------------------------
 
 @csrf_exempt

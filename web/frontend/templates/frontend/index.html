@@ -37,12 +37,18 @@
                 </li>
                 {% if isLoggedIn %}
                     <li class="nav-item active">
+                        <a class="nav-link" href="/search/">Search</a>
+                    </li>
+                    <li class="nav-item active">
                         <a class="nav-link" href="/create/book/">Create Listing</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="/logout/">Log Out</a>
                     </li>
                 {% else %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/search/">Search</a>
+                    </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="/login/">Log In</a>
                     </li>
@@ -62,11 +68,11 @@
         <div class="Listings">
             <h2>Current Listings</h2>
             {% for listing in result.recent_listings %}
-                <div>
+                <div class="item">
                     <p>
-                        <span>{{listing.book_title}}</span>
+                        <span>Title: {{listing.book_title}}</span>
                     </p>
-                    <p>${{listing.price}}</p>
+                    <p>Price: ${{listing.price}}</p>
                 </div>
             {% endfor %}
         </div>
@@ -75,7 +81,7 @@
         <div class="HighestRated">
             <h2>Highest Rated</h2>
             {% for book in result.top_books %}
-                <div>
+                <div class="item">
                     <a href="/book/{{book.pk}}">
                         <span>{{book.title}}</span>
                         <span>({{book.year_published}})</span>
@@ -90,7 +96,7 @@
         <div class="MostRecent">
             <h2>Most Recent</h2>
             {% for book in result.recent_books %}
-                <div>
+                <div class="item">
                     <a href="/book/{{book.pk}}">
                         <span>{{book.title}}</span>
                         <span>({{book.year_published}})</span>
