@@ -10,22 +10,31 @@ from django.views.decorators.csrf import csrf_exempt
 __EXP_URL = 'http://exp-api:8000/api/v1/'
 
 def index(request, context = {}):
-	req = urllib.request.Request(__EXP_URL+'home')
-	resp_json = urllib.request.urlopen(req).read().decode('utf-8')
-	resp = json.loads(resp_json)
 	if request.COOKIES.get('auth'):
 		req = urllib.request.Request(__EXP_URL+'authenticator/'+str(request.COOKIES.get('auth')))
 		resp_auth = urllib.request.urlopen(req).read().decode('utf-8')
 		resp_auth = json.loads(resp_auth)
 		if resp_auth['success']:
-			resp['isLoggedIn'] = True
+			isLoggedIn = True
+			del_cookie = False
 		else:
-			response.delete_cookie('auth')
+			isLoggedIn = False
+			del_cookie = True
+	else:
+		isLoggedIn = False
+		del_cookie = False
+	req = urllib.request.Request(__EXP_URL+'home')
+	resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+	resp = json.loads(resp_json)
 	if context:
 		resp['msg']  = context['msg']
 	else:
 		resp['msg'] = ""
+	if isLoggedIn:
+		resp['isLoggedIn'] = True
 	response = render(request, 'frontend/index.html', resp)
+	if del_cookie:
+		response.delete_cookie('auth')
 	return response
 
 def book_detail(request, book_id):
@@ -87,6 +96,17 @@ def not_found(request):
 
 @csrf_exempt
 def search(request):
+	if request.COOKIES.get('auth'):
+		req = urllib.request.Request(__EXP_URL+'authenticator/'+str(request.COOKIES.get('auth')))
+		resp_auth = urllib.request.urlopen(req).read().decode('utf-8')
+		resp_auth = json.loads(resp_auth)
+		if resp_auth['success']:
+			isLoggedIn = True
+		else:
+			isLoggedIn = False
+	else:
+		isLoggedIn = False
+	context = {}
 	if request.method == 'POST':
 		es = Elasticsearch(['es'])
 		try:
@@ -98,9 +118,19 @@ def search(request):
 			results['count'] = len(results['hits']['hits'])
 		for hit in results['hits']['hits']:
 			hit['source'] = hit['_source']
-		return render(request, 'frontend/search.html', {"msg": results})
+		context['msg'] = results
+		isLoggedIn = True
+		if isLoggedIn:
+			context['isLoggedIn'] = "True"
+		response = render(request, 'frontend/search.html', context)
+		if not isLoggedIn:
+			response.delete_cookie('auth')
+		return response
 	else:
-		return render(request, 'frontend/search.html', {})
+		if isLoggedIn:
+			context['isLoggedIn'] = True
+		response = render(request, 'frontend/search.html', context)
+		return response
 
 @csrf_exempt
 def signup(request):
