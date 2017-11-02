@@ -208,7 +208,7 @@ def create_new_listing(request):
 				producer = KafkaProducer(bootstrap_servers='kafka:9092')
 				data = r['result']['fields']
 				data['pk'] = r['result']['pk']
-				producer.send('new-listing-topic', json.dumps(data).encode('utf-8'))
+				producer.send('new-listings-topic', json.dumps(data).encode('utf-8'))
 			return JsonResponse(r)
 		else:
 			return __generate_response('invalid authenticator token', False)
