@@ -207,7 +207,19 @@ def create_new_listing(request):
 			if r['success']:
 				producer = KafkaProducer(bootstrap_servers='kafka:9092')
 				data = r['result']['fields']
+				book_id = r['result']['fields']['book']
+				user_id = r['result']['fields']['lister']
+				r_book = __make_request(__MODELS_URL + __BOOK + str(book_id))
+				r_user = __make_request(__MODELS_URL + __USER + str(user_id))
+
+				author_id = r_book['result']['fields']['author']
+				r_author = __make_request(__MODELS_URL + __AUTHOR + str(author_id))
+				author = r_author['result']['fields']['first_name'] + " " + r_author['result']['fields']['last_name']
+				username = r_user['result']['fields']['username']
+
 				data['pk'] = r['result']['pk']
+				data['author'] = author
+				data['username'] = username
 				producer.send('new-listings-topic', json.dumps(data).encode('utf-8'))
 			return JsonResponse(r)
 		else:
