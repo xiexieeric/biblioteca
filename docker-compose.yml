@@ -51,6 +51,7 @@ web:
     container_name: web
     links:
         - exp:exp-api
+        - es:es
     volumes:
         - .:/app
     ports:

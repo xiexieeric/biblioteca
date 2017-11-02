@@ -4,6 +4,7 @@ import urllib.request
 import urllib.parse
 import json
 from .forms import *
+from elasticsearch import Elasticsearch
 from django.views.decorators.csrf import csrf_exempt
 
 __EXP_URL = 'http://exp-api:8000/api/v1/'
@@ -76,6 +77,15 @@ def create_book_listing(request):
 
 def not_found(request):
 	return render(request, 'frontend/404.html', {})
+
+@csrf_exempt
+def search(request):
+	if request.method == 'POST':
+		es = Elasticsearch(['es'])
+		results = es.search(index='listing_index', body={'query': {'query_string': {'query': request.POST.get('search_text')}}, 'size': 10})
+		return render(request, 'frontend/search.html', {"msg": results})
+	else:
+		return render(request, 'frontend/search.html', {})
 
 @csrf_exempt
 def signup(request):
