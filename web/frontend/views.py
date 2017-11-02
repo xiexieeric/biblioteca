@@ -83,7 +83,7 @@ def search(request):
 	if request.method == 'POST':
 		es = Elasticsearch(['es'])
 		try:
-			results = es.search(index='listing_index', body={'query': {'query_string': {'query': "request.POST.get('search_text')" }}, 'size': 10})
+			results = es.search(index='listing_index', body={'query': {'query_string': {'query': request.POST.get('search_text') }}, 'size': 10})
 		except:
 			results = "You have no listings"
 		return render(request, 'frontend/search.html', {"msg": results})
