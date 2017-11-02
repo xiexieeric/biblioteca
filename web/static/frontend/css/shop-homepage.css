@@ -3,6 +3,11 @@
  * Copyright 2013-2017 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-shop-homepage/blob/master/LICENSE)
  */
+ @import url('https://fonts.googleapis.com/css?family=Roboto');
+
+h2 {
+	font-family: 'Roboto', sans-serif;	
+}
 
 body {
     padding-top: 54px;
@@ -20,6 +25,22 @@ body {
 	margin: auto;
 	margin-top: 20px;
 	margin-bottom: 20px;
-	padding: 10px;
+	padding: 20px;
 	border-radius: 10px;
+}
+
+.item {
+	border-color: black;
+	border-width: 1px;
+	border-style: solid;
+	background-color: white;
+	margin-bottom: 10px;
+	padding:10px;
+	border-radius: 5px;
+}
+
+.item p {
+	font-family: 'Roboto', sans-serif;
+	margin-top: 5px;
+	color: black;
 }
