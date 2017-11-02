@@ -180,35 +180,5 @@
       "rating": 4.5,
       "content": "I got this book as a gift from my dad, really enjoyed it!"
     }
-  }, {
-    "model": "api.listing",
-    "pk": 1,
-    "fields": {
-      "lister": 1,
-      "post_date": "2017-09-21T20:48:15.249Z",
-      "book": 2,
-      "book_title": "Cracking the Coding Interview",
-      "price": 13.25
-    }
-  }, {
-    "model": "api.listing",
-    "pk": 2,
-    "fields": {
-      "lister": 2,
-      "post_date": "2017-10-12T20:49:04.331Z",
-      "book": 2,
-      "book_title": "Cracking the Coding Interview",
-      "price": 111.11
-    }
-  }, {
-    "model": "api.listing",
-    "pk": 3,
-    "fields": {
-      "lister": 3,
-      "post_date": "2017-09-23T20:50:27.068Z",
-      "book_title": "Frankenstein",
-      "book": 3,
-      "price": 14.50
-    }
   }
 ]

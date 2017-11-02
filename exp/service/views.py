@@ -31,7 +31,7 @@ def home(request):
 			'top_books': __get_sorted_book_results('rating', 10),
 			'recent_books': __get_sorted_book_results('year_published', 10),
 			'recent_listings': __get_sorted_listing_results('post_date', 10)
-		}
+		}	
 		return __generate_response('home page data', True, result)
 	else:
 		return __generate_response('only GET accepted', False)
