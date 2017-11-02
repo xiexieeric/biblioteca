@@ -14,12 +14,19 @@ def index(request, context = {}):
 	resp_json = urllib.request.urlopen(req).read().decode('utf-8')
 	resp = json.loads(resp_json)
 	if request.COOKIES.get('auth'):
-		resp['isLoggedIn'] = True
+		req = urllib.request.Request(__EXP_URL+'authenticator/'+str(request.COOKIES.get('auth')))
+		resp_auth = urllib.request.urlopen(req).read().decode('utf-8')
+		resp_auth = json.loads(resp_auth)
+		if resp_auth['success']:
+			resp['isLoggedIn'] = True
+		else:
+			response.delete_cookie('auth')
 	if context:
 		resp['msg']  = context['msg']
 	else:
 		resp['msg'] = ""
-	return render(request, 'frontend/index.html', resp)
+	response = render(request, 'frontend/index.html', resp)
+	return response
 
 def book_detail(request, book_id):
 	req = urllib.request.Request(__EXP_URL +'book/'+book_id)
@@ -85,7 +92,12 @@ def search(request):
 		try:
 			results = es.search(index='listing_index', body={'query': {'query_string': {'query': request.POST.get('search_text') }}, 'size': 10})
 		except:
-			results = "You have no listings"
+			results = {'msg': "You have no listings"}
+			results['count'] = 0
+		if results['hits']:
+			results['count'] = len(results['hits']['hits'])
+		for hit in results['hits']['hits']:
+			hit['source'] = hit['_source']
 		return render(request, 'frontend/search.html', {"msg": results})
 	else:
 		return render(request, 'frontend/search.html', {})
@@ -115,7 +127,15 @@ def signup(request):
 
 def login(request):
 	if request.COOKIES.get("auth"):
-		return index(request, {"msg": "You're already logged in!"})
+		req = urllib.request.Request(__EXP_URL+'authenticator/'+str(request.COOKIES.get('auth')))
+		resp = urllib.request.urlopen(req).read().decode('utf-8')
+		resp = json.loads(resp)
+		if resp['success']:
+			return index(request, {"msg": "You're already logged in!"})
+		else:
+			response = HttpResponseRedirect('/login/')
+			response.delete_cookie('auth')
+			return response
 	if request.method == 'POST':
 		form = LoginForm(request.POST)
 		if request.COOKIES.get('auth'):

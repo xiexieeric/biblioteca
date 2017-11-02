@@ -57,7 +57,6 @@
 
 <!-- Page Content -->
 <div class="container">
-    {{ msg }}
     <form method="POST" action="/search/">
         <input placeholder="Search keywords" type="text" name="search_text"/>
         <input type='submit'/>
@@ -65,14 +64,19 @@
     <div class="row">
         <div class="Listings">
             <h2>Search Results</h2>
-            {% for listing in result.recent_listings %}
-                <div>
+            {% if msg.count > 0 %}
+            {% for hit in msg.hits.hits %}
+                <div class="item">
                     <p>
-                        <span>{{listing.book_title}}</span>
+                        <span>{{hit.source.book_title}} by {{hit.source.author}}</span>
                     </p>
-                    <p>${{listing.price}}</p>
+                    <p>Sold by: {{hit.source.username}}</p>
+                    <p>${{hit.source.price}}</p>
                 </div>
             {% endfor %}
+            {% else %}
+                <p>No results! Create your own <a href='/create/book/'>here!</a></p>
+            {% endif %}
         </div>
     </div>
 </div>
