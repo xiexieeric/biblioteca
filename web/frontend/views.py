@@ -113,9 +113,10 @@ def search(request):
 			results = es.search(index='listing_index', body={'query': {'query_string': {'query': request.POST.get('search_text') }}, 'size': 10})
 		except:
 			results = {'msg': "You have no listings"}
-			results['count'] = 0
 		if results['hits']:
 			results['count'] = len(results['hits']['hits'])
+		else:
+			results['count'] = 0
 		for hit in results['hits']['hits']:
 			hit['source'] = hit['_source']
 		context['msg'] = results
