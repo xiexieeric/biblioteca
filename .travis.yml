@@ -12,7 +12,7 @@ install:
 before_script: 
 
 script: 
-  - docker-compose up -d && docker exec -it models bash && cd models && python manage.py test
+  - docker-compose up -d && docker exec -it models bash && cd models
 
 after_script:
   - docker-compose down
