@@ -9,6 +9,11 @@ install:
   - docker pull mysql:5.7.14
   - docker run --name mysql -d -e MYSQL\_ROOT\_PASSWORD='$3cureUS' -v ~/cs4501/db:/var/lib/mysql  mysql:5.7.14
 
-script: 
+before_script: 
   - docker-compose up -d
+
+script: 
   - python models/manage.py test
+
+after_script:
+  - docker-compose down
