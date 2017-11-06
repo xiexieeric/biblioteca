@@ -1,3 +1,0 @@
-language: python
-script: 
-- python ./models/manage.py test
