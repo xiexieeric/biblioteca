@@ -13,7 +13,7 @@ before_script:
   - docker-compose up -d
 
 script: 
-  - docker exec -it models bash && python models/manage.py test
+  - docker exec -it models bash && cd models && python models/manage.py test
 
 after_script:
   - docker-compose down
