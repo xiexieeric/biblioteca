@@ -8,6 +8,8 @@ services:
 install:
   - docker pull mysql:5.7.14
   - docker run --name mysql -d -e MYSQL\_ROOT\_PASSWORD='$3cureUS' -v ~/cs4501/db:/var/lib/mysql  mysql:5.7.14
+  - docker run -it --name mysql-cmdline --link mysql:db mysql:5.7.14 mysql -uroot -p'$3cureUS' -h db -e "CREATE USER 'www'@'%' IDENTIFIED BY '\$3cureUS'; CREATE DATABASE cs4501 CHARACTER SET utf8; GRANT ALL PRIVILEGES ON *.* TO 'www'@'%';"
+  - docker rm mysql-cmdline
 
 before_script: 
   - docker-compose up -d
