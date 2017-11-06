@@ -5,8 +5,12 @@ sudo: required
 services:
   - docker
 
+install:
+  - docker pull mysql:5.7.14
+  - docker run --name mysql -d -e MYSQL\_ROOT\_PASSWORD='$3cureUS' -v ~/cs4501/db:/var/lib/mysql  mysql:5.7.14
+
 before_script: 
-- docker-compose up
+  - docker-compose up
 
 script: 
-- python models/manage.py test
+  - python models/manage.py test
