@@ -3,169 +3,135 @@ from unittest import TestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-class PythonOrgSearch(unittest.TestCase):
-
-    def setUp(self):
-        self.driver = webdriver.Firefox()
-
-    def test_search_in_python_org(self):
-        driver = self.driver
-        driver.get("http://www.python.org")
-        self.assertIn("Python", driver.title)
-        elem = driver.find_element_by_name("q")
-        elem.send_keys("pycon")
-        elem.send_keys(Keys.RETURN)
-        assert "No results found." not in driver.page_source
-
-
-    def tearDown(self):
-        self.driver.close()
-
-
 # 1. Home Page Test Case
-class test_home_page(unittest.TestCase):
+class HomePageTestCase(unittest.TestCase):
     def setUp(self):
-        self.browser = webdriver.Chrome()
+        self.browser = webdriver.Chrome('./chromedriver')
 
-    def test_front_page(self):
+    def test_home_page(self):
         browser = self.browser
-        browser.get('127.0.0.1:8001/api/v1/')
-        assert "Welcome to the index page for API v1" in browser.page_source
+        browser.get('http://127.0.0.1:8000')
+        assert "Biblioteca" in browser.page_source
+        assert "Current Listings" in browser.page_source
 
     def tearDown(self):
         self.browser.close()
 
 
 # 2. Book Detail Page Test Case
-
-class test_book_detail(unittest.TestCase):
+class BookDetailTestCase(unittest.TestCase):
     def setUp(self):
-        self.browser = webdriver.Chrome()
+        self.browser = webdriver.Chrome('./chromedriver')
 
-    def test_product_detail(self):
+    def test_book_detail(self):
         browser = self.browser
-        browser.get('http://104.236.231.206:8000/')
-        self.product = browser.find_element_by_tag_name("td")
-        self.product.click()
-        assert "Product not found." not in browser.page_source
-
-    def tearDown(self):
-        self.browser.close()
-        
-
-# 2. Author Detail Page Test Case
-
-class test_author_detail(unittest.TestCase):
-    def setUp(self):
-        self.browser = webdriver.Chrome()
-
-    def test_product_detail(self):
-        browser = self.browser
-        browser.get('http://104.236.231.206:8000/')
-        self.product = browser.find_element_by_tag_name("td")
-        self.product.click()
-        assert "Product not found." not in browser.page_source
-
-    def tearDown(self):
-        self.browser.close()
-
-# 4. Review Detail Page Test Case
-
-class test_review_detail(unittest.TestCase):
-    def setUp(self):
-        self.browser = webdriver.Chrome()
-
-    def test_product_detail(self):
-        browser = self.browser
-        browser.get('http://104.236.231.206:8000/')
-        self.product = browser.find_element_by_tag_name("td")
-        self.product.click()
-        assert "Product not found." not in browser.page_source
+        browser.get('http://127.0.0.1:8000/')
+        book = browser.find_element_by_tag_name("a")
+        book.click()
+        assert "What you were looking for could not be found, sorry!" not in browser.page_source
 
     def tearDown(self):
         self.browser.close()
 
 
-# 5. Listing Detail Page Test Case
-
-class test_listing_detail(unittest.TestCase):
+# 3. Sign Up Page Test Case
+class SignUpPageTestCase(unittest.TestCase):
     def setUp(self):
-        self.browser = webdriver.Chrome()
+        self.browser = webdriver.Chrome('./chromedriver')
 
-    def test_product_detail(self):
+    def test_sign_up_page(self):
         browser = self.browser
-        browser.get('http://104.236.231.206:8000/')
-        self.product = browser.find_element_by_tag_name("td")
-        self.product.click()
-        assert "Product not found." not in browser.page_source
+        browser.get('http://127.0.0.1:8000/signup')
+        assert "First Name:" in browser.page_source
+        assert "Last Name:" in browser.page_source
+        assert "Username:" in browser.page_source
+        assert "Password:" in browser.page_source
 
     def tearDown(self):
         self.browser.close()
 
 
-
-class SignUpTestCase(unittest.TestCase):
-    def setUp(self):
-        self.browser = webdriver.Chrome()
-
-    def test_sign_up(self):
-        browser = self.browser
-        browser.get('http://104.236.231.206:8000/signup')
-        assert "Sign Up" in browser.page_source
-
-    def tearDown(self):
-        self.browser.close()
-
-# search page
-class SearchPageTestCase(unittest.TestCase):
-    def setUp(self):
-        self.browser = webdriver.Chrome()
-
-    def test_search(self):
-        browser = self.browser
-        browser.get('http://104.236.231.206:8000/search')
-        q = browser.find_element_by_id("id_query")
-        q.send_keys("Wool")
-        search_button = browser.find_element_by_id("searchSubmit")
-        search_button.click()
-        assert "RF Wool Pants" in browser.page_source
-
-    def tearDown(self):
-        self.browser.close()
-
-# test creating an account
+# 4. Create Account Test Case
 class CreateAccountTestCase(unittest.TestCase):
     def setUp(self):
-        self.browser = webdriver.Chrome()
+        self.browser = webdriver.Chrome('./chromedriver')
 
     def test_create_account(self):
         browser = self.browser
-        browser.get('http://104.236.231.206:8000/signup')
-        form_elements = browser.find_elements_by_tag_name("input")
-        for field in form_elements:
-            if field == "Username":
-                field.send_keys("max")
-            if field == "Password":
-                field.send_keys("nicepass")
-            if field == "Fname":
-                field.send_keys("Maxwell")
-            if field == "Lname":
-                field.send_keys("Luo")
-            if field == "email":
-                field.send_keys("ml3ha@virginia.edu")
-            if field == "location":
-                field.send_keys("Charlottesville")
-        submit = browser.find_element_by_id("signupSubmit")
-        submit.click()
-        # should redirect to login page
-        assert "Login" in browser.page_source
+        browser.get('http://127.0.0.1:8000/signup/')
+        input_fname = browser.find_element_by_name("fname")
+        input_fname.send_keys("Jennifer")
+        input_lname = browser.find_element_by_name("lname")
+        input_lname.send_keys("Fang")
+        input_username = browser.find_element_by_name("username")
+        input_username.send_keys("jennifer")
+        input_password = browser.find_element_by_name("password")
+        input_password.send_keys("fang")
+        elem = browser.find_element_by_name("signup_submit")
+        elem.send_keys(Keys.RETURN)
+
+        # Should show username already exists
+        assert "username already exists" in browser.page_source
 
     def tearDown(self):
         self.browser.close()
 
 
+# 5. Login and Create Listing Test Case
+class LoginTestCase(unittest.TestCase):
+    def setUp(self):
+        self.browser = webdriver.Chrome('./chromedriver')
+
+    def test_login_and_create_listing(self):
+        browser = self.browser
+        browser.get('http://127.0.0.1:8000/login/')
+        input_username = browser.find_element_by_name("username")
+        input_username.send_keys("jennifer")
+        input_password = browser.find_element_by_name("password")
+        input_password.send_keys("fang")
+
+        elem = browser.find_element_by_name("login_submit")
+        elem.send_keys(Keys.RETURN)
+
+        # Should show a Log Out button
+        assert "Log Out" in browser.page_source
+
+        browser.get('http://127.0.0.1:8000/create/book/')
+
+        input_book = browser.find_element_by_name("book")
+        input_book.send_keys("1")
+        input_price = browser.find_element_by_name("price")
+        input_price.send_keys("10.00")
+        elem = browser.find_element_by_name("listing_submit")
+        elem.send_keys(Keys.RETURN)
+
+        # Should show a success message
+        assert "Listing created successfully!" in browser.page_source
+
+    def tearDown(self):
+        self.browser.close()
 
 
+# 6. Search Page Test Case
+class SearchPageTestCase(unittest.TestCase):
+    def setUp(self):
+        self.browser = webdriver.Chrome('./chromedriver')
+
+    def test_search(self):
+        browser = self.browser
+
+        # login and create a listing first 
+        LoginTestCase.test_login_and_create_listing(self)
+
+        browser.get('http://127.0.0.1:8000/search/')
+        query = browser.find_element_by_name("search_text")
+        query.send_keys("Green")
+        search_button = browser.find_element_by_name("search_submit")
+        search_button.click()
+        assert "Green Eggs and Ham" in browser.page_source
+
+    def tearDown(self):
+        self.browser.close()
 
 
 
