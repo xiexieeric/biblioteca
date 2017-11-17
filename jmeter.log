@@ -1,0 +1,354 @@
+2017-11-16 21:35:01,978 INFO o.a.j.u.JMeterUtils: Setting Locale to en_US
+2017-11-16 21:35:01,997 INFO o.a.j.JMeter: Loading user properties from: /Users/brandon/Downloads/apache-jmeter-3.3/bin/user.properties
+2017-11-16 21:35:01,998 INFO o.a.j.JMeter: Loading system properties from: /Users/brandon/Downloads/apache-jmeter-3.3/bin/system.properties
+2017-11-16 21:35:02,004 INFO o.a.j.JMeter: Copyright (c) 1998-2017 The Apache Software Foundation
+2017-11-16 21:35:02,004 INFO o.a.j.JMeter: Version 3.3 r1808647
+2017-11-16 21:35:02,004 INFO o.a.j.JMeter: java.version=1.8.0_111
+2017-11-16 21:35:02,004 INFO o.a.j.JMeter: java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+2017-11-16 21:35:02,004 INFO o.a.j.JMeter: os.name=Mac OS X
+2017-11-16 21:35:02,004 INFO o.a.j.JMeter: os.arch=x86_64
+2017-11-16 21:35:02,004 INFO o.a.j.JMeter: os.version=10.12.6
+2017-11-16 21:35:02,004 INFO o.a.j.JMeter: file.encoding=UTF-8
+2017-11-16 21:35:02,004 INFO o.a.j.JMeter: Max memory     =536870912
+2017-11-16 21:35:02,004 INFO o.a.j.JMeter: Available Processors =4
+2017-11-16 21:35:02,008 INFO o.a.j.JMeter: Default Locale=English (United States)
+2017-11-16 21:35:02,008 INFO o.a.j.JMeter: JMeter  Locale=English (United States)
+2017-11-16 21:35:02,008 INFO o.a.j.JMeter: JMeterHome=/Users/brandon/Downloads/apache-jmeter-3.3
+2017-11-16 21:35:02,008 INFO o.a.j.JMeter: user.dir  =/Users/brandon/Third Year/ISA/app/biblioteca
+2017-11-16 21:35:02,008 INFO o.a.j.JMeter: PWD       =/Users/brandon/Third Year/ISA/app/biblioteca
+2017-11-16 21:35:07,013 INFO o.a.j.JMeter: IP: 127.0.0.1 Name: Brandons-MacBook-Pro.local FullName: localhost
+2017-11-16 21:35:07,017 INFO o.a.j.s.FileServer: Default base='/Users/brandon/Third Year/ISA/app/biblioteca'
+2017-11-16 21:35:07,017 INFO o.a.j.s.FileServer: Set new base='/Users/brandon/Third Year/ISA/app/biblioteca'
+2017-11-16 21:35:07,223 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2017-11-16 21:35:07,242 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2017-11-16 21:35:07,247 INFO o.a.j.s.SaveService: Using SaveService properties version 3.2
+2017-11-16 21:35:07,253 INFO o.a.j.s.SaveService: Loading file: load_tests.jmx
+2017-11-16 21:35:07,315 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2017-11-16 21:35:07,315 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2017-11-16 21:35:07,315 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2017-11-16 21:35:07,315 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2017-11-16 21:35:07,315 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2017-11-16 21:35:07,315 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2017-11-16 21:35:07,338 INFO o.a.j.JMeter: Creating summariser <summary>
+2017-11-16 21:35:07,344 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2017-11-16 21:35:07,347 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2017-11-16 21:35:07,347 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2017-11-16 21:35:07,353 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2017-11-16 21:35:07,354 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2017-11-16 21:35:07,798 INFO o.a.j.JMeter: Running test (1510886107798)
+2017-11-16 21:35:07,843 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group
+2017-11-16 21:35:07,843 INFO o.a.j.e.StandardJMeterEngine: Starting 100 threads for group Thread Group.
+2017-11-16 21:35:07,843 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2017-11-16 21:35:07,844 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=100 ramp-up=10 perThread=100.0 delayedStart=false
+2017-11-16 21:35:07,851 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-1
+2017-11-16 21:35:07,878 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = Brandons-MacBook-Pro.local
+2017-11-16 21:35:07,885 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2017-11-16 21:35:07,895 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2017-11-16 21:35:07,895 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to ISO-8859-1
+2017-11-16 21:35:07,895 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2017-11-16 21:35:07,895 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2017-11-16 21:35:07,919 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2017-11-16 21:35:07,919 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2017-11-16 21:35:07,953 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-2
+2017-11-16 21:35:08,051 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-3
+2017-11-16 21:35:08,152 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-4
+2017-11-16 21:35:08,253 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-5
+2017-11-16 21:35:08,361 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-6
+2017-11-16 21:35:08,465 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-7
+2017-11-16 21:35:08,566 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-8
+2017-11-16 21:35:08,669 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-9
+2017-11-16 21:35:08,770 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-10
+2017-11-16 21:35:08,868 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-11
+2017-11-16 21:35:08,969 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-12
+2017-11-16 21:35:09,073 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-13
+2017-11-16 21:35:09,169 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-14
+2017-11-16 21:35:09,275 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-15
+2017-11-16 21:35:09,375 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-16
+2017-11-16 21:35:09,475 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-17
+2017-11-16 21:35:09,575 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-18
+2017-11-16 21:35:09,675 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-19
+2017-11-16 21:35:09,777 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-20
+2017-11-16 21:35:09,875 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-21
+2017-11-16 21:35:09,975 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-22
+2017-11-16 21:35:10,078 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-23
+2017-11-16 21:35:10,182 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-24
+2017-11-16 21:35:10,278 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-25
+2017-11-16 21:35:10,380 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-26
+2017-11-16 21:35:10,481 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-27
+2017-11-16 21:35:10,578 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-28
+2017-11-16 21:35:10,679 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-29
+2017-11-16 21:35:10,782 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-30
+2017-11-16 21:35:10,815 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-3
+2017-11-16 21:35:10,815 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-3
+2017-11-16 21:35:10,882 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-31
+2017-11-16 21:35:10,982 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-32
+2017-11-16 21:35:11,084 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-33
+2017-11-16 21:35:11,179 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-34
+2017-11-16 21:35:11,282 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-35
+2017-11-16 21:35:11,383 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-36
+2017-11-16 21:35:11,482 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-37
+2017-11-16 21:35:11,540 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-1
+2017-11-16 21:35:11,540 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-1
+2017-11-16 21:35:11,584 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-38
+2017-11-16 21:35:11,686 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-39
+2017-11-16 21:35:11,783 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-40
+2017-11-16 21:35:11,884 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-41
+2017-11-16 21:35:11,903 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-2
+2017-11-16 21:35:11,903 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-2
+2017-11-16 21:35:11,985 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-42
+2017-11-16 21:35:12,086 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-43
+2017-11-16 21:35:12,187 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-44
+2017-11-16 21:35:12,285 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-45
+2017-11-16 21:35:12,386 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-46
+2017-11-16 21:35:12,488 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-47
+2017-11-16 21:35:12,588 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-48
+2017-11-16 21:35:12,689 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-49
+2017-11-16 21:35:12,787 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-50
+2017-11-16 21:35:12,887 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-51
+2017-11-16 21:35:12,957 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-4
+2017-11-16 21:35:12,957 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-4
+2017-11-16 21:35:12,990 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-52
+2017-11-16 21:35:13,089 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-53
+2017-11-16 21:35:13,192 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-54
+2017-11-16 21:35:13,291 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-55
+2017-11-16 21:35:13,393 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-56
+2017-11-16 21:35:13,491 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-57
+2017-11-16 21:35:13,593 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-58
+2017-11-16 21:35:13,693 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-59
+2017-11-16 21:35:13,795 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-60
+2017-11-16 21:35:13,894 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-61
+2017-11-16 21:35:13,995 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-62
+2017-11-16 21:35:14,027 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-5
+2017-11-16 21:35:14,027 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-5
+2017-11-16 21:35:14,097 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-63
+2017-11-16 21:35:14,195 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-64
+2017-11-16 21:35:14,296 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-65
+2017-11-16 21:35:14,396 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-66
+2017-11-16 21:35:14,496 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-67
+2017-11-16 21:35:14,594 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-68
+2017-11-16 21:35:14,699 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-69
+2017-11-16 21:35:14,795 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-70
+2017-11-16 21:35:14,898 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-71
+2017-11-16 21:35:15,002 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-72
+2017-11-16 21:35:15,100 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-73
+2017-11-16 21:35:15,199 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-74
+2017-11-16 21:35:15,303 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-75
+2017-11-16 21:35:15,319 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-6
+2017-11-16 21:35:15,319 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-6
+2017-11-16 21:35:15,405 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-76
+2017-11-16 21:35:15,508 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-77
+2017-11-16 21:35:15,610 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-78
+2017-11-16 21:35:15,710 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-79
+2017-11-16 21:35:15,815 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-80
+2017-11-16 21:35:15,915 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-81
+2017-11-16 21:35:16,017 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-82
+2017-11-16 21:35:16,116 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-83
+2017-11-16 21:35:16,214 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-84
+2017-11-16 21:35:16,316 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-85
+2017-11-16 21:35:16,415 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-86
+2017-11-16 21:35:16,518 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-87
+2017-11-16 21:35:16,619 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-88
+2017-11-16 21:35:16,715 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-89
+2017-11-16 21:35:16,818 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-90
+2017-11-16 21:35:16,922 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-91
+2017-11-16 21:35:17,019 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-92
+2017-11-16 21:35:17,121 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-93
+2017-11-16 21:35:17,222 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-94
+2017-11-16 21:35:17,318 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-95
+2017-11-16 21:35:17,420 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-96
+2017-11-16 21:35:17,519 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-97
+2017-11-16 21:35:17,622 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-98
+2017-11-16 21:35:17,690 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-7
+2017-11-16 21:35:17,690 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-7
+2017-11-16 21:35:17,721 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-99
+2017-11-16 21:35:17,820 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-100
+2017-11-16 21:35:19,039 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-8
+2017-11-16 21:35:19,039 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-8
+2017-11-16 21:35:20,901 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-9
+2017-11-16 21:35:20,901 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-9
+2017-11-16 21:35:21,782 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-10
+2017-11-16 21:35:21,782 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-10
+2017-11-16 21:35:24,003 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-11
+2017-11-16 21:35:24,003 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-11
+2017-11-16 21:35:24,179 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-12
+2017-11-16 21:35:24,179 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-12
+2017-11-16 21:35:24,398 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-13
+2017-11-16 21:35:24,398 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-13
+2017-11-16 21:35:25,486 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-14
+2017-11-16 21:35:25,486 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-14
+2017-11-16 21:35:26,443 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-15
+2017-11-16 21:35:26,443 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-15
+2017-11-16 21:35:26,830 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-16
+2017-11-16 21:35:26,830 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-16
+2017-11-16 21:35:28,006 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-17
+2017-11-16 21:35:28,006 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-17
+2017-11-16 21:35:28,503 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-18
+2017-11-16 21:35:28,503 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-18
+2017-11-16 21:35:28,605 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-20
+2017-11-16 21:35:28,605 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-20
+2017-11-16 21:35:29,158 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-19
+2017-11-16 21:35:29,158 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-19
+2017-11-16 21:35:29,846 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-21
+2017-11-16 21:35:29,847 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-21
+2017-11-16 21:35:30,037 INFO o.a.j.r.Summariser: summary +    673 in 00:00:22 =   30.3/s Avg:  2129 Min:    91 Max:  3286 Err:     0 (0.00%) Active: 79 Started: 100 Finished: 21
+2017-11-16 21:35:30,070 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-23
+2017-11-16 21:35:30,070 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-23
+2017-11-16 21:35:30,306 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-22
+2017-11-16 21:35:30,306 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-22
+2017-11-16 21:35:30,459 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-24
+2017-11-16 21:35:30,459 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-24
+2017-11-16 21:35:31,326 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-25
+2017-11-16 21:35:31,326 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-25
+2017-11-16 21:35:31,425 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-27
+2017-11-16 21:35:31,425 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-27
+2017-11-16 21:35:32,107 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-26
+2017-11-16 21:35:32,107 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-26
+2017-11-16 21:35:32,443 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-28
+2017-11-16 21:35:32,443 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-28
+2017-11-16 21:35:32,901 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-29
+2017-11-16 21:35:32,901 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-29
+2017-11-16 21:35:33,234 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-30
+2017-11-16 21:35:33,234 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-30
+2017-11-16 21:35:33,549 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-33
+2017-11-16 21:35:33,549 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-33
+2017-11-16 21:35:33,723 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-31
+2017-11-16 21:35:33,723 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-31
+2017-11-16 21:35:33,740 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-32
+2017-11-16 21:35:33,740 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-32
+2017-11-16 21:35:33,942 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-34
+2017-11-16 21:35:33,942 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-34
+2017-11-16 21:35:34,107 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-35
+2017-11-16 21:35:34,107 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-35
+2017-11-16 21:35:34,296 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-37
+2017-11-16 21:35:34,296 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-37
+2017-11-16 21:35:34,769 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-36
+2017-11-16 21:35:34,769 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-36
+2017-11-16 21:35:35,427 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-40
+2017-11-16 21:35:35,427 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-40
+2017-11-16 21:35:35,491 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-38
+2017-11-16 21:35:35,491 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-38
+2017-11-16 21:35:35,556 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-39
+2017-11-16 21:35:35,556 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-39
+2017-11-16 21:35:35,566 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-42
+2017-11-16 21:35:35,566 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-42
+2017-11-16 21:35:35,764 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-41
+2017-11-16 21:35:35,764 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-41
+2017-11-16 21:35:36,336 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-43
+2017-11-16 21:35:36,336 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-43
+2017-11-16 21:35:36,601 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-46
+2017-11-16 21:35:36,601 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-46
+2017-11-16 21:35:36,639 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-44
+2017-11-16 21:35:36,639 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-44
+2017-11-16 21:35:36,715 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-48
+2017-11-16 21:35:36,715 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-48
+2017-11-16 21:35:36,737 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-45
+2017-11-16 21:35:36,737 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-45
+2017-11-16 21:35:36,941 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-50
+2017-11-16 21:35:36,941 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-50
+2017-11-16 21:35:37,001 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-47
+2017-11-16 21:35:37,002 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-47
+2017-11-16 21:35:37,041 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-49
+2017-11-16 21:35:37,041 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-49
+2017-11-16 21:35:37,271 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-51
+2017-11-16 21:35:37,271 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-51
+2017-11-16 21:35:37,400 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-55
+2017-11-16 21:35:37,400 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-55
+2017-11-16 21:35:37,517 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-52
+2017-11-16 21:35:37,517 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-52
+2017-11-16 21:35:37,542 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-54
+2017-11-16 21:35:37,542 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-54
+2017-11-16 21:35:37,717 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-57
+2017-11-16 21:35:37,717 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-57
+2017-11-16 21:35:37,798 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-56
+2017-11-16 21:35:37,798 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-56
+2017-11-16 21:35:37,847 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-53
+2017-11-16 21:35:37,847 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-53
+2017-11-16 21:35:38,024 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-59
+2017-11-16 21:35:38,024 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-59
+2017-11-16 21:35:38,208 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-65
+2017-11-16 21:35:38,208 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-65
+2017-11-16 21:35:38,323 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-64
+2017-11-16 21:35:38,323 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-64
+2017-11-16 21:35:38,353 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-58
+2017-11-16 21:35:38,354 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-58
+2017-11-16 21:35:38,416 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-61
+2017-11-16 21:35:38,416 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-61
+2017-11-16 21:35:38,446 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-67
+2017-11-16 21:35:38,446 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-67
+2017-11-16 21:35:38,508 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-60
+2017-11-16 21:35:38,508 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-60
+2017-11-16 21:35:38,600 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-62
+2017-11-16 21:35:38,601 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-62
+2017-11-16 21:35:38,611 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-66
+2017-11-16 21:35:38,611 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-66
+2017-11-16 21:35:38,642 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-69
+2017-11-16 21:35:38,642 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-69
+2017-11-16 21:35:38,810 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-68
+2017-11-16 21:35:38,810 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-68
+2017-11-16 21:35:38,914 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-63
+2017-11-16 21:35:38,914 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-63
+2017-11-16 21:35:39,108 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-73
+2017-11-16 21:35:39,108 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-73
+2017-11-16 21:35:39,192 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-71
+2017-11-16 21:35:39,193 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-71
+2017-11-16 21:35:39,201 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-75
+2017-11-16 21:35:39,202 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-75
+2017-11-16 21:35:39,258 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-80
+2017-11-16 21:35:39,258 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-80
+2017-11-16 21:35:39,276 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-70
+2017-11-16 21:35:39,276 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-70
+2017-11-16 21:35:39,335 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-74
+2017-11-16 21:35:39,335 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-74
+2017-11-16 21:35:39,367 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-79
+2017-11-16 21:35:39,368 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-79
+2017-11-16 21:35:39,461 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-76
+2017-11-16 21:35:39,461 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-76
+2017-11-16 21:35:39,516 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-78
+2017-11-16 21:35:39,516 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-78
+2017-11-16 21:35:39,598 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-81
+2017-11-16 21:35:39,598 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-81
+2017-11-16 21:35:39,615 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-77
+2017-11-16 21:35:39,615 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-77
+2017-11-16 21:35:39,658 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-72
+2017-11-16 21:35:39,658 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-72
+2017-11-16 21:35:39,678 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-85
+2017-11-16 21:35:39,678 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-85
+2017-11-16 21:35:39,695 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-84
+2017-11-16 21:35:39,695 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-84
+2017-11-16 21:35:39,732 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-82
+2017-11-16 21:35:39,733 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-82
+2017-11-16 21:35:39,769 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-87
+2017-11-16 21:35:39,769 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-87
+2017-11-16 21:35:39,771 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-91
+2017-11-16 21:35:39,771 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-91
+2017-11-16 21:35:39,813 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-88
+2017-11-16 21:35:39,813 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-88
+2017-11-16 21:35:39,841 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-83
+2017-11-16 21:35:39,841 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-83
+2017-11-16 21:35:39,887 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-86
+2017-11-16 21:35:39,887 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-86
+2017-11-16 21:35:39,927 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-92
+2017-11-16 21:35:39,927 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-92
+2017-11-16 21:35:39,960 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-90
+2017-11-16 21:35:39,960 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-90
+2017-11-16 21:35:39,988 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-94
+2017-11-16 21:35:39,988 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-94
+2017-11-16 21:35:40,003 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-93
+2017-11-16 21:35:40,003 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-93
+2017-11-16 21:35:40,070 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-89
+2017-11-16 21:35:40,070 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-89
+2017-11-16 21:35:40,083 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-98
+2017-11-16 21:35:40,083 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-98
+2017-11-16 21:35:40,095 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-99
+2017-11-16 21:35:40,095 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-99
+2017-11-16 21:35:40,114 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-96
+2017-11-16 21:35:40,114 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-96
+2017-11-16 21:35:40,117 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-95
+2017-11-16 21:35:40,117 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-95
+2017-11-16 21:35:40,148 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-97
+2017-11-16 21:35:40,148 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-97
+2017-11-16 21:35:40,162 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-100
+2017-11-16 21:35:40,162 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-100
+2017-11-16 21:35:40,162 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2017-11-16 21:35:40,162 INFO o.a.j.r.Summariser: summary +    327 in 00:00:10 =   32.3/s Avg:  2093 Min:   538 Max:  2893 Err:     0 (0.00%) Active: 0 Started: 100 Finished: 100
+2017-11-16 21:35:40,163 INFO o.a.j.r.Summariser: summary =   1000 in 00:00:32 =   30.9/s Avg:  2117 Min:    91 Max:  3286 Err:     0 (0.00%)
