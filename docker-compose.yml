@@ -46,14 +46,37 @@ exp:
         - "8002:8000"
     command: bash -c "cd exp && mod_wsgi-express start-server --working-directory /app/exp --reload-on-changes /app/exp/exp/wsgi.py"
 
-web:
+web1:
     image: tp33/django
-    container_name: web
+    container_name: web1
     links:
         - exp:exp-api
         - es:es
     volumes:
         - .:/app
     ports:
-        - "8000:8000"
+        - "8003:8000"
     command: bash -c "cd web && mod_wsgi-express start-server --url-alias /static static --working-directory /app/web --reload-on-changes /app/web/web/wsgi.py"
+
+web2:
+    image: tp33/django
+    container_name: web2
+    links:
+        - exp:exp-api
+        - es:es
+    volumes:
+        - .:/app
+    ports:
+        - "8004:8000"
+    command: bash -c "cd web && mod_wsgi-express start-server --url-alias /static static --working-directory /app/web --reload-on-changes /app/web/web/wsgi.py"
+
+lb:
+    image: haproxy
+    container_name: lb
+    links:
+        - web1:web1
+        - web2:web2
+    volumes:
+        - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+        - "8000:8000"
