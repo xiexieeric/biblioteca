@@ -56,7 +56,44 @@ def book_detail(request, book_id):
 		context["author_last"] = resp_2["result"]["fields"]["last_name"]
 		if request.COOKIES.get('auth'):
 			context['isLoggedIn'] = True
-		return render(request, 'frontend/detail.html', context)
+		return render(request, 'frontend/book_detail.html', context)
+	else:
+		return redirect('/notfound')
+
+def listing_detail(request, listing_id):
+	if request.COOKIES.get('auth'):
+		req = urllib.request.Request(__EXP_URL+'authenticator/'+str(request.COOKIES.get('auth')))
+		resp_auth = urllib.request.urlopen(req).read().decode('utf-8')
+		resp_auth = json.loads(resp_auth)
+		if resp_auth['success']:
+			isLoggedIn = True
+			del_cookie = False
+		else:
+			isLoggedIn = False
+			del_cookie = True
+	else:
+		isLoggedIn = False
+		del_cookie = False
+	req = urllib.request.Request(__EXP_URL +'listing/'+listing_id)
+	resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+	resp = json.loads(resp_json)
+	if resp["success"] == True:
+		context = {
+			"book_title": resp["result"]["fields"]["book_title"],
+			"price": resp["result"]["fields"]["price"],
+		}
+		req_2 = urllib.request.Request('http://exp-api:8000/api/v1/user/'+str(resp["result"]["fields"]["lister"]))
+		resp_json_2 = urllib.request.urlopen(req_2).read().decode('utf-8')
+		resp_2 = json.loads(resp_json_2)
+		context["first_name"] = resp_2["result"]["fields"]["first_name"]
+		context["last_name"] = resp_2["result"]["fields"]["last_name"]
+		if isLoggedIn:
+			context['isLoggedIn'] = True
+			post_data = {'user': resp_auth['result']['fields']['user_id'], 'listing': resp['result']['pk']}
+			post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
+			req = urllib.request.Request(__EXP_URL+'listing/click', data=post_encoded, method='POST')
+			resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+		return render(request, 'frontend/listing_detail.html', context)
 	else:
 		return redirect('/notfound')
 
