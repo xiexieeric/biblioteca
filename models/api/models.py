@@ -21,6 +21,7 @@ class Authenticator(models.Model):
 		return "%s - %s - %s" % (self.authenticator, 
 			self.user_id, self.date_created)
 
+
 class Author(models.Model):
 	first_name = models.CharField(max_length = 200)
 	last_name = models.CharField(max_length = 200)
@@ -64,4 +65,11 @@ class Listing(models.Model):
 		return "%s - %s - %s - %s" % (self.lister, 
 			self.post_date, self.book.title, self.price)
 
+
+class Recommendation(models.Model):
+	item = models.ForeignKey(Listing, on_delete=models.CASCADE)
+	recommended_items = models.TextField()
+
+	def __str__(self):
+		return "%s - %s" % (self.item_id, self.recommended_items)
 
