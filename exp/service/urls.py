@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^authenticator/(?P<auth_id>[0-9a-z]+|(all))$', views.authenticator, name='authenticator'),
 
     url(r'^listing/create$', views.create_new_listing, name='create_listing'),
+    url(r'^listing/click$', views.user_click_listing, name='click_listing'),
 
 
     url(r'^signup', views.create_account, name='signup'),

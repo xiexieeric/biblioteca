@@ -227,7 +227,15 @@ def create_new_listing(request):
 	else:
 		return __generate_response('only POST accepted', False)
 
-
+@csrf_exempt
+def user_click_listing(request):
+	if request.method == 'POST':
+		producer = KafkaProducer(bootstrap_servers='kafka:9092')
+		data = {'user': request.POST['user'], 'listing': request.POST['listing']}
+		producer.send('new-click-topic', json.dumps(data).encode('utf-8'))
+		return __generate_response('listing click logged', True)
+	else:
+		return __generate_response('only POST accepted', False)
 
 
 # Default model endpoints --------------------------------------------------

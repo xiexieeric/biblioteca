@@ -20,7 +20,16 @@ batch:
     links:
         - kafka:kafka
         - es:es
-    command: bash -c "cd batch && python app.py"
+    command: bash -c "cd /app/batch && python app.py"
+
+batch_click:
+    image: tp33/django
+    container_name: batch_click
+    volumes:
+        - .:/app
+    links:
+        - kafka:kafka
+    command: bash -c "cd /app/batch-click && python app.py"
 
 models:
     image: tp33/django

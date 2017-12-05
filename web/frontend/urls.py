@@ -9,6 +9,7 @@ app_name = 'frontend'
 urlpatterns = [
 	url(r'^$', views.index, name="index"),
 	url(r'^book/(?P<book_id>[0-9]+|(all))$', views.book_detail, name='book_detail'),
+	url(r'^listing/(?P<listing_id>[0-9]+|(all))$', views.listing_detail, name='listing_detail'),
 	url(r'^notfound/', views.not_found, name='not_found'),
 	url(r'^signup/', views.signup, name='signup'),
 	url(r'^login/', views.login, name='login'),
