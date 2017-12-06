@@ -180,5 +180,39 @@
       "rating": 4.5,
       "content": "I got this book as a gift from my dad, really enjoyed it!"
     }
+  },
+  {
+    "model": "api.listing",
+    "pk": 1,
+    "fields": {
+      "lister": 1,
+      "post_date": "2017-09-21T20:50:27.068Z",
+      "book": 1,
+      "book_title": "Harry Potter for sale",
+      "price": 5.00
+    }
+  },
+  {
+    "model": "api.listing",
+    "pk": 2,
+    "fields": {
+      "lister": 1,
+      "post_date": "2017-09-21T20:50:27.068Z",
+      "book": 2,
+      "book_title": "Take this book off me",
+      "price": 150.00
+    }
+  },
+  {
+    "model": "api.listing",
+    "pk": 3,
+    "fields": {
+      "lister": 1,
+      "post_date": "2017-09-21T20:50:27.068Z",
+      "book": 3,
+      "book_title": "Best Book ever!!",
+      "price": 50000000.00
+    }
   }
+
 ]
