@@ -82,7 +82,7 @@ def listing_detail(request, listing_id):
 			"book_title": resp["result"]["fields"]["book_title"],
 			"price": resp["result"]["fields"]["price"],
 		}
-		if resp['recs']:
+		if 'recs' in resp:
 			context['recs'] = resp['recs']
 		req_2 = urllib.request.Request('http://exp-api:8000/api/v1/user/'+str(resp["result"]["fields"]["lister"]))
 		resp_json_2 = urllib.request.urlopen(req_2).read().decode('utf-8')
