@@ -6,7 +6,7 @@ from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 
-from api.models import User, Listing, Book
+from api.models import User, Listing, Book, Recommendation
 
 @csrf_exempt
 def listing(request, listing_id):
@@ -30,7 +30,21 @@ def __handle_listing_get(request, listing_id):
 	else:
 		try:
 			listing = Listing.objects.get(pk=listing_id)
-			return generate_response("listing found", True, listing)
+			recs_exist = Recommendation.objects.filter(item=listing_id).exists()
+			if recs_exist:
+				recs = Recommendation.objects.get(item=listing_id).recommended_items
+				recs = list(map(int, recs.split(',')))
+				rec_listings = Listing.objects.filter(pk__in=recs)
+				rec_list = []
+				for i in rec_listings:
+					rec_list.append(serialize(i))
+			res = {}
+			res["success"] = True
+			res["msg"] = 'listing found'
+			res["result"] = serialize(listing)
+			if recs_exist:
+				res['recs'] = rec_list
+			return JsonResponse(res)
 		except:
 			return generate_response("listing not found", False)
 
@@ -111,5 +125,7 @@ def delete_listing(request, listing_id):
 		return generate_response("listing deleted", True, listing)
 	except:
 		return generate_response("listing does not exist", False)
+
+
 
 

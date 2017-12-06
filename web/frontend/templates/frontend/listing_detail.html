@@ -61,6 +61,19 @@
             <p>${{ price }}</p>
             <p>Sold by {{ first_name}} {{last_name}}
         </div>
+        <div>
+        {% if recs %}
+            <h2>Other customers also liked</h2>
+            {% for listing in recs %}
+                <div class="item">
+                    <p>
+                        <a href="/listing/{{listing.pk}}">Title: {{listing.fields.book_title}}</span>
+                    </p>
+                    <p>Price: ${{listing.fields.price}}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+        </div>
     </div>
 </div>
 <!-- /.container -->
