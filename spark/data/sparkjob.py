@@ -50,10 +50,12 @@ while True:
 
 	# connect to the db
 	db = MySQLdb.connect(host="db", user="root", passwd="$3cureUS", db="cs4501")
+	print("Connected to db")
 	cursor = db.cursor()
 
 	# empty the api_recommendation table
 	cursor.execute("DELETE FROM api_recommendation")
+	print("Table cleared")
 
 	# write the output to the table, output is in the format pair, frequency
 	recommendations = {}
@@ -75,9 +77,12 @@ while True:
 
 		# don't use string concatenation
 		cursor.execute("INSERT INTO api_recommendation (item_id, recommended_items) VALUES (%s, %s)", (key, data))
+		print("inserted (%s, %s)" % (key, data))
+
+	db.commit()
+	cursor.close()
+	print("finished inserting... sleeping")
 
 	sleep(120)
-
-
 
 sc.stop()

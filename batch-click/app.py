@@ -18,4 +18,4 @@ while True:
 for message in consumer:
 	new_click = json.loads((message.value).decode('utf-8'))
 	with open("/app/spark/data/access.log", "a") as myfile:
-   		myfile.write(new_click['user']+'\t'+new_click['listing'])
+   		myfile.write(new_click['user']+'\t'+new_click['listing']+'\n')

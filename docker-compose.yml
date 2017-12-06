@@ -116,7 +116,8 @@ spark-master:
     volumes:
         - ./spark/data:/tmp/data
         - ./spark:/spark
-    command: bash -c "/spark/mysql_setup.sh && /usr/spark-2.2.0/bin/spark-class org.apache.spark.deploy.master.Master -h spark-master"
+    # command: bash -c "/spark/mysql_setup.sh && /usr/spark-2.2.0/bin/spark-class org.apache.spark.deploy.master.Master -h spark-master"
+    command: /usr/spark-2.2.0/bin/spark-class org.apache.spark.deploy.master.Master -h spark-master
 
 spark-worker:
     image: gettyimages/spark
@@ -144,6 +145,6 @@ spark-worker:
     volumes:
         - ./spark/data:/tmp/data
         - ./spark:/spark
-    # entrypoint: /spark/mysql_setup.sh && /usr/spark-2.2.0/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
-    command: bash -c "/spark/mysql_setup.sh && /usr/spark-2.2.0/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077"
+    # command: bash -c "/spark/mysql_setup.sh && /usr/spark-2.2.0/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077"
+    command: /usr/spark-2.2.0/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
 
